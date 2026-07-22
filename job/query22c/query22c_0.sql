@@ -1,0 +1,1 @@
+/home/carol/Workspace/join-order-benchmark/22c.sql

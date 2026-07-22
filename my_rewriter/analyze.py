@@ -171,16 +171,47 @@ if DATASET == 'calcite':
             template_rewrites.append(rewrite_obj)
 else:
     queries_path = os.path.join('..', DATASET)
-    query_templates = os.listdir(queries_path)
-    for template in tqdm(query_templates):
-        max_idx = 1 if args.large else 2
-        for idx in range(max_idx):
-            query_filename = f'{queries_path}/{template}/{template}_{idx}.sql'
-            content = open(query_filename, 'r').read()
-            content = re.sub(r'--.*\n', '', content)
-            queries = [q.strip() + ';' for q in content.split(';') if q.strip()]
+
+    for template in tqdm(sorted(os.listdir(queries_path))):
+        template_path = os.path.join(queries_path, template)
+
+        # Skip create_tables.sql, fkindexes.sql, and other files.
+        if not os.path.isdir(template_path):
+            continue
+
+        query_files = sorted(
+            os.path.join(template_path, filename)
+            for filename in os.listdir(template_path)
+            if filename.endswith('.sql')
+        )
+
+        # Preserve the existing --large behavior:
+        # evaluate only one instance per template.
+        if args.large:
+            query_files = query_files[:1]
+
+        for query_filename in query_files:
+            with open(query_filename, 'r', encoding='utf-8') as file:
+                content = file.read()
+
+            content = re.sub(r'--.*(?:\n|$)', '\n', content)
+
+            queries = [
+                statement.strip() + ';'
+                for statement in content.split(';')
+                if statement.strip()
+            ]
+
+            query_stem = os.path.splitext(
+                os.path.basename(query_filename)
+            )[0]
+
             for j, query in enumerate(queries):
-                name = f'{template}_{idx}' if len(queries) == 1 else f'{template}_{idx}_{j}'
+                name = (
+                    query_stem
+                    if len(queries) == 1
+                    else f'{query_stem}_{j}'
+                )
 
                 rewrite_obj = analyze(query, name)
                 template_rewrites.append(rewrite_obj)

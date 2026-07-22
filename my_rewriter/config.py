@@ -3,6 +3,7 @@ from llama_index.llms.openai import OpenAI
 from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.llms.openai_like import OpenAILike
+import os
 
 CACHE_PATH = 'cache'
 CASE_RULES_PATH = 'stackoverflow-rewrite-rules-query-optimization.jsonl'
@@ -68,11 +69,12 @@ def init_llms(model_type: str = '', load_model=True) -> dict[str, str]:
     }
 
 def init_db_config(database: str) -> dict[str, str]:
+    dbname = "imdb" if database == "job" else database
     return {
-        'host': '',
+        'host': 'localhost',
         'port': 5432,
-        'user': '',
-        'password': '',
-        'dbname': database,
+        'user': 'regensql',
+        'password': os.environ.get("PGPASSWORD", ""),
+        'dbname': dbname,
         'db': 'postgresql'
     }

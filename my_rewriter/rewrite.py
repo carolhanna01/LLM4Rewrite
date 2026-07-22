@@ -7,9 +7,31 @@ from jpype.types import *
 # zip -d LearnedRewrite.jar META-INF/DUMMY.SF
 # zip -d LearnedRewrite.jar META-INF/DUMMY.DSA
 ''' Configure JAVA environment for JPype '''
-classpath = []
-local_lib_dir = 'CalciteRewrite/out/artifacts/LearnedRewrite_jar'
-classpath.extend([os.path.join(local_lib_dir, jar) for jar in os.listdir(local_lib_dir)])
+from pathlib import Path
+
+project_root = Path(__file__).resolve().parent.parent
+local_lib_dir = (
+    project_root
+    / "CalciteRewrite"
+    / "out"
+    / "artifacts"
+    / "LearnedRewrite_jar"
+)
+
+if not local_lib_dir.is_dir():
+    raise FileNotFoundError(
+        f"Calcite JAR directory not found: {local_lib_dir}"
+    )
+
+classpath = [
+    str(path)
+    for path in local_lib_dir.glob("*.jar")
+]
+
+if not classpath:
+    raise FileNotFoundError(
+        f"No JAR files found in: {local_lib_dir}"
+    )
 
 if not jp.isJVMStarted():
     jp.startJVM(jp.getDefaultJVMPath(), classpath=classpath)

@@ -65,13 +65,56 @@ elif DATASET == 'hbom':
         test(name, query, schema, pg_args, model_args, docstore, LOG_DIR, RETRIEVER_TOP_K=RETRIEVER_TOP_K, CASE_BATCH=CASE_BATCH, RULE_BATCH=RULE_BATCH, REWRITE_ROUNDS=REWRITE_ROUNDS, index=args.index)
 else:
     queries_path = os.path.join('..', DATASET)
-    query_templates = os.listdir(queries_path)
-    for template in query_templates:
-        for idx in range(2):
-            query_filename = f'{queries_path}/{template}/{template}_{idx}.sql'
-            content = open(query_filename, 'r').read()
-            content = re.sub(r'--.*\n', '', content)
-            queries = [q.strip() + ';' for q in content.split(';') if q.strip()]
+
+    for template in sorted(os.listdir(queries_path)):
+        template_path = os.path.join(queries_path, template)
+
+        # Skip create_tables.sql, fkindexes.sql, and other files.
+        if not os.path.isdir(template_path):
+            continue
+
+        query_files = sorted(
+            os.path.join(template_path, filename)
+            for filename in os.listdir(template_path)
+            if filename.endswith('.sql')
+        )
+
+        for query_filename in query_files:
+            with open(query_filename, 'r', encoding='utf-8') as file:
+                content = file.read()
+
+            # Remove SQL line comments.
+            content = re.sub(r'--.*(?:\n|$)', '\n', content)
+
+            queries = [
+                statement.strip() + ';'
+                for statement in content.split(';')
+                if statement.strip()
+            ]
+
+            # query1a_0.sql -> query1a_0
+            query_stem = os.path.splitext(
+                os.path.basename(query_filename)
+            )[0]
+
             for j, query in enumerate(queries):
-                name = f'{template}_{idx}' if len(queries) == 1 else f'{template}_{idx}_{j}'
-                test(name, query, schema, pg_args, model_args, docstore, LOG_DIR, RETRIEVER_TOP_K=RETRIEVER_TOP_K, CASE_BATCH=CASE_BATCH, RULE_BATCH=RULE_BATCH, REWRITE_ROUNDS=REWRITE_ROUNDS, index=args.index)
+                name = (
+                    query_stem
+                    if len(queries) == 1
+                    else f'{query_stem}_{j}'
+                )
+
+                test(
+                    name,
+                    query,
+                    schema,
+                    pg_args,
+                    model_args,
+                    docstore,
+                    LOG_DIR,
+                    RETRIEVER_TOP_K=RETRIEVER_TOP_K,
+                    CASE_BATCH=CASE_BATCH,
+                    RULE_BATCH=RULE_BATCH,
+                    REWRITE_ROUNDS=REWRITE_ROUNDS,
+                    index=args.index,
+                )
