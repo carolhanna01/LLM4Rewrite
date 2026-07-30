@@ -4,6 +4,6 @@ llama-index-vector-stores-chroma
 jsonlines
 jpype1
 sqlglot
-psycopg2
+psycopg2-binary==2.9.12
 prettytable
 scipy

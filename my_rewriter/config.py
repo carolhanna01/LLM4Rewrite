@@ -8,11 +8,11 @@ import os
 CACHE_PATH = 'cache'
 CASE_RULES_PATH = 'stackoverflow-rewrite-rules-query-optimization.jsonl'
 
-def init_llms(model_type: str = '', load_model=True) -> dict[str, str]:
+def init_llms(model_type: str = 'open', load_model=True) -> dict[str, str]:
     if 'open' in model_type:
         if load_model:
             Settings.embed_model = HuggingFaceEmbedding(
-                model_name='gte-Qwen2-1.5B-instruct',
+                model_name='Alibaba-NLP/gte-Qwen2-1.5B-instruct',
                 max_length=131072
             )
         embed_dim = 1536
@@ -26,12 +26,12 @@ def init_llms(model_type: str = '', load_model=True) -> dict[str, str]:
     if 'open' in model_type:
         if load_model:
             Settings.llm = OpenAILike(
-                model="DeepSeek-R1-Distill-32B",
-                api_key="",
-                api_base="",
-                context_window=131072,
-                is_chat_model=True,
-                tokenizer='DeepSeek-R1-Distill-32B'
+                model="llama3:8b",
+                api_key="ollama",
+                api_base="http://127.0.0.1:11434/v1",
+                context_window=4096,
+                max_tokens=1024,
+                is_chat_model=True
             )
     elif 'gpt3' in model_type:
         if load_model:

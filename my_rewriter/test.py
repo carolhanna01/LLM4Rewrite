@@ -15,7 +15,7 @@ parser.add_argument('--index', type=str, default='hybrid')
 parser.add_argument('--topk', type=int, default=10)
 args = parser.parse_args()
 
-model_args = init_llms(args.logdir)
+model_args = init_llms('open')
 pg_config = init_db_config(args.database)
 
 from my_rewriter.database import DBArgs, Database

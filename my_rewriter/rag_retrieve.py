@@ -6,6 +6,10 @@ from collections import defaultdict
 import json
 import itertools
 
+import sys
+import pysqlite3
+sys.modules["sqlite3"] = pysqlite3
+
 import chromadb
 from llama_index.core import VectorStoreIndex, StorageContext, Settings
 from llama_index.vector_stores.chroma import ChromaVectorStore

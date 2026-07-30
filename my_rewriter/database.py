@@ -50,6 +50,15 @@ class Database():
         self.enable_indexscan = enable_indexscan
 
     def resetConn(self, timeout: int = -1):
+        # RBOT_DATABASE_ENV_PATCH
+        self.args.host = os.environ.get('DB_HOST', getattr(self.args, 'host', 'localhost'))
+        self.args.port = os.environ.get('DB_PORT', getattr(self.args, 'port', '5432'))
+        self.args.user = os.environ.get('DB_USER', getattr(self.args, 'user', ''))
+        self.args.password = (
+            os.environ.get('DB_PASSWORD')
+            or os.environ.get('PGPASSWORD')
+            or getattr(self.args, 'password', None)
+        )
         if timeout > 0:
             self.conn = psycopg2.connect(database=self.args.dbname,
                                         user=self.args.user,
