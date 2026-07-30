@@ -1,0 +1,4 @@
+18:38:16,950 root ERROR Failed to execute pgsql_cost_estimation None
+[SyntaxError('syntax error at or near "None"\nLINE 1: explain (FORMAT JSON) None\n                              ^\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n')]
+18:38:16,955 root ERROR Failed to execute pgsql_cost_estimation None
+[SyntaxError('syntax error at or near "None"\nLINE 1: explain (FORMAT JSON) None\n                              ^\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n')]

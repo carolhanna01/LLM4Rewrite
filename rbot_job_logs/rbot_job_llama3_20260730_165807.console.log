@@ -1,0 +1,68 @@
+nohup: ignoring input
+/cs/student/msc/sse/2021/channa/workspace/ReGenSQL/.venv/lib64/python3.9/site-packages/networkx/utils/backends.py:135: RuntimeWarning: networkx backend defined more than once: nx-loopback
+  backends.update(_get_backends("networkx.backends"))
+log4j:WARN No appenders could be found for logger (org.apache.calcite.sql.parser).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+Traceback (most recent call last):
+  File "/cs/student/msc/sse/2021/channa/workspace/LLM4Rewrite/my_rewriter/test.py", line 107, in <module>
+    test(
+  File "/cs/student/msc/sse/2021/channa/workspace/LLM4Rewrite/my_rewriter/../my_rewriter/test_utils.py", line 26, in test
+    res = rag_retrieve(query, schema, docstore, embed_dim=model_args['EMBED_DIM'], RETRIEVER_TOP_K=RETRIEVER_TOP_K)
+  File "/cs/student/msc/sse/2021/channa/workspace/LLM4Rewrite/my_rewriter/../my_rewriter/rag_retrieve.py", line 73, in rag_retrieve
+    retriever_res = retriever.retrieve(query)
+  File "/cs/student/msc/sse/2021/channa/workspace/ReGenSQL/.venv/lib64/python3.9/site-packages/llama_index_instrumentation/dispatcher.py", line 319, in wrapper
+    result = func(*args, **kwargs)
+  File "/cs/student/msc/sse/2021/channa/workspace/ReGenSQL/.venv/lib64/python3.9/site-packages/llama_index/core/base/base_retriever.py", line 246, in retrieve
+    nodes = self._retrieve(query_bundle)
+  File "/cs/student/msc/sse/2021/channa/workspace/ReGenSQL/.venv/lib64/python3.9/site-packages/llama_index_instrumentation/dispatcher.py", line 319, in wrapper
+    result = func(*args, **kwargs)
+  File "/cs/student/msc/sse/2021/channa/workspace/LLM4Rewrite/my_rewriter/../rag/my_query_fusion_retriver.py", line 306, in _retrieve
+    synthesized_queries = self._get_queries(query_bundle.query_str)
+  File "/cs/student/msc/sse/2021/channa/workspace/LLM4Rewrite/my_rewriter/../rag/my_query_fusion_retriver.py", line 90, in _get_queries
+    rewrites, matched_rules = gen_rewrites_from_rules(sql=original_query, schema=self.schema, fun=self._achat, verbose=self._verbose)
+  File "/cs/student/msc/sse/2021/channa/workspace/LLM4Rewrite/my_rewriter/../rag/gen_rewrites_from_rules.py", line 156, in gen_rewrites_from_rules
+    task_results = run_async_tasks(tasks)
+  File "/cs/student/msc/sse/2021/channa/workspace/ReGenSQL/.venv/lib64/python3.9/site-packages/llama_index/core/async_utils.py", line 96, in run_async_tasks
+    outputs: List[Any] = asyncio_run(_gather())
+  File "/cs/student/msc/sse/2021/channa/workspace/ReGenSQL/.venv/lib64/python3.9/site-packages/llama_index/core/async_utils.py", line 52, in asyncio_run
+    return loop.run_until_complete(coro)
+  File "/usr/lib64/python3.9/asyncio/base_events.py", line 647, in run_until_complete
+    return future.result()
+  File "/cs/student/msc/sse/2021/channa/workspace/ReGenSQL/.venv/lib64/python3.9/site-packages/llama_index/core/async_utils.py", line 94, in _gather
+    return await asyncio.gather(*tasks_to_execute)
+  File "/cs/student/msc/sse/2021/channa/workspace/LLM4Rewrite/my_rewriter/../rag/gen_rewrites_from_rules.py", line 79, in gen_rewrites_from_nl_rules
+    response = await fun(messages)
+  File "/cs/student/msc/sse/2021/channa/workspace/LLM4Rewrite/my_rewriter/../rag/my_query_fusion_retriver.py", line 82, in _achat
+    response = await self._llm.achat(chat_messages)
+  File "/cs/student/msc/sse/2021/channa/workspace/ReGenSQL/.venv/lib64/python3.9/site-packages/llama_index_instrumentation/dispatcher.py", line 365, in async_wrapper
+    result = await func(*args, **kwargs)
+  File "/cs/student/msc/sse/2021/channa/workspace/ReGenSQL/.venv/lib64/python3.9/site-packages/llama_index/core/llms/callbacks.py", line 76, in wrapped_async_llm_chat
+    f_return_val = await f(_self, messages, **kwargs)
+  File "/cs/student/msc/sse/2021/channa/workspace/ReGenSQL/.venv/lib64/python3.9/site-packages/llama_index/llms/openai/base.py", line 688, in achat
+    return await achat_fn(messages, **kwargs)
+  File "/cs/student/msc/sse/2021/channa/workspace/ReGenSQL/.venv/lib64/python3.9/site-packages/tenacity/asyncio/__init__.py", line 189, in async_wrapped
+    return await copy(fn, *args, **kwargs)
+  File "/cs/student/msc/sse/2021/channa/workspace/ReGenSQL/.venv/lib64/python3.9/site-packages/tenacity/asyncio/__init__.py", line 111, in __call__
+    do = await self.iter(retry_state=retry_state)
+  File "/cs/student/msc/sse/2021/channa/workspace/ReGenSQL/.venv/lib64/python3.9/site-packages/tenacity/asyncio/__init__.py", line 153, in iter
+    result = await action(retry_state)
+  File "/cs/student/msc/sse/2021/channa/workspace/ReGenSQL/.venv/lib64/python3.9/site-packages/tenacity/_utils.py", line 99, in inner
+    return call(*args, **kwargs)
+  File "/cs/student/msc/sse/2021/channa/workspace/ReGenSQL/.venv/lib64/python3.9/site-packages/tenacity/__init__.py", line 400, in <lambda>
+    self._add_action_func(lambda rs: rs.outcome.result())
+  File "/usr/lib64/python3.9/concurrent/futures/_base.py", line 439, in result
+    return self.__get_result()
+  File "/usr/lib64/python3.9/concurrent/futures/_base.py", line 391, in __get_result
+    raise self._exception
+  File "/cs/student/msc/sse/2021/channa/workspace/ReGenSQL/.venv/lib64/python3.9/site-packages/tenacity/asyncio/__init__.py", line 114, in __call__
+    result = await fn(*args, **kwargs)
+  File "/cs/student/msc/sse/2021/channa/workspace/ReGenSQL/.venv/lib64/python3.9/site-packages/llama_index/llms/openai/base.py", line 743, in _achat
+    response = await aclient.chat.completions.create(
+  File "/cs/student/msc/sse/2021/channa/workspace/ReGenSQL/.venv/lib64/python3.9/site-packages/openai/resources/chat/completions/completions.py", line 2454, in create
+    return await self._post(
+  File "/cs/student/msc/sse/2021/channa/workspace/ReGenSQL/.venv/lib64/python3.9/site-packages/openai/_base_client.py", line 1784, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+  File "/cs/student/msc/sse/2021/channa/workspace/ReGenSQL/.venv/lib64/python3.9/site-packages/openai/_base_client.py", line 1584, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'error': {'message': "model 'gpt-4o' not found", 'type': 'not_found_error', 'param': None, 'code': None}}
