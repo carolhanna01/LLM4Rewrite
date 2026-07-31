@@ -2,3 +2,45 @@
 [SyntaxError('syntax error at or near "None"\nLINE 1: explain (FORMAT JSON) None\n                              ^\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n')]
 18:38:16,955 root ERROR Failed to execute pgsql_cost_estimation None
 [SyntaxError('syntax error at or near "None"\nLINE 1: explain (FORMAT JSON) None\n                              ^\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n')]
+18:41:38,809 root ERROR Failed to execute pgsql_cost_estimation None
+[SyntaxError('syntax error at or near "None"\nLINE 1: explain (FORMAT JSON) None\n                              ^\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n')]
+18:41:38,813 root ERROR Failed to execute pgsql_cost_estimation None
+[SyntaxError('syntax error at or near "None"\nLINE 1: explain (FORMAT JSON) None\n                              ^\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n')]
+18:49:28,516 root ERROR Failed to execute pgsql_cost_estimation None
+[SyntaxError('syntax error at or near "None"\nLINE 1: explain (FORMAT JSON) None\n                              ^\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n')]
+18:49:28,520 root ERROR Failed to execute pgsql_cost_estimation None
+[SyntaxError('syntax error at or near "None"\nLINE 1: explain (FORMAT JSON) None\n                              ^\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n')]
+18:49:29,584 root ERROR Failed to execute pgsql_cost_estimation None
+[SyntaxError('syntax error at or near "None"\nLINE 1: explain (FORMAT JSON) None\n                              ^\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n')]
+18:49:29,588 root ERROR Failed to execute pgsql_cost_estimation None
+[SyntaxError('syntax error at or near "None"\nLINE 1: explain (FORMAT JSON) None\n                              ^\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n')]
+18:49:41,55 root ERROR Failed to execute pgsql_cost_estimation None
+[SyntaxError('syntax error at or near "None"\nLINE 1: explain (FORMAT JSON) None\n                              ^\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n')]
+18:49:41,60 root ERROR Failed to execute pgsql_cost_estimation None
+[SyntaxError('syntax error at or near "None"\nLINE 1: explain (FORMAT JSON) None\n                              ^\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n')]
+18:49:46,296 root ERROR Failed to execute pgsql_cost_estimation None
+[SyntaxError('syntax error at or near "None"\nLINE 1: explain (FORMAT JSON) None\n                              ^\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n')]
+18:49:46,300 root ERROR Failed to execute pgsql_cost_estimation None
+[SyntaxError('syntax error at or near "None"\nLINE 1: explain (FORMAT JSON) None\n                              ^\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n')]
+22:18:52,36 root INFO Improvements:
++------------+--------------------+-------------------+-------------------------------------------------+
+|  Template  |       Input        |       Output      |                      Rules                      |
++------------+--------------------+-------------------+-------------------------------------------------+
+| query1d_0  | 41.19533333333333  |       40.928      |           ['PROJECT_FILTER_TRANSPOSE']          |
+| query29b_0 | 77.84633333333333  | 8.165999999999999 |           ['AGGREGATE_PROJECT_MERGE']           |
+| query6c_0  | 5.928000000000001  |       5.688       |               ['FILTER_INTO_JOIN']              |
+| query6e_0  | 10.634666666666666 |       8.196       | ['AGGREGATE_PROJECT_MERGE', 'FILTER_INTO_JOIN'] |
++------------+--------------------+-------------------+-------------------------------------------------+
+22:18:52,44 root INFO Improved 4 out of 113 queries
+22:18:52,44 root INFO Average: 2701.3647640117983
+22:18:52,44 root INFO Median: 273.5813333333333
+22:18:52,44 root INFO 90th Percentile: 5643.532333333334
+22:18:52,44 root INFO 95th Percentile: 8098.661333333333
+22:18:52,45 root INFO Average Input: 2694.7230324483776
+22:18:52,45 root INFO Median Input: 273.5813333333333
+22:18:52,45 root INFO 90th Percentile Input: 5627.947
+22:18:52,45 root INFO 95th Percentile Input: 8098.661333333333
+22:18:52,45 root INFO Average Retrieval Time: 16769.911504424777
+22:18:52,45 root INFO Average Arrange Time: 31027.53926589426
+22:18:52,45 root INFO Average Rewrite Time: 10.08849557522124
+22:18:52,45 root INFO Average Total Time: 47807.53926589425
