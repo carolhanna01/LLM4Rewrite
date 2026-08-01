@@ -1,0 +1,7 @@
+nohup: ignoring input
+/cs/student/msc/sse/2021/channa/workspace/ReGenSQL/.venv/lib64/python3.9/site-packages/networkx/utils/backends.py:135: RuntimeWarning: networkx backend defined more than once: nx-loopback
+  backends.update(_get_backends("networkx.backends"))
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 69.81it/s]
+log4j:WARN No appenders could be found for logger (org.apache.calcite.sql.parser).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.

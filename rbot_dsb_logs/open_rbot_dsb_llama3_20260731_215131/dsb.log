@@ -1,0 +1,676 @@
+07:08:45,650 root ERROR Failed to execute pgsql_cost_estimation SELECT "$cor0"."ca_county", CAST(1998 AS INTEGER) AS "d_year5", "$cor0"."web_sales0" / "$cor0"."web_sales" AS "web_q1_q2_increase", "$cor0"."store_sales0" / "$cor0"."store_sales" AS "store_q1_q2_increase", "t85"."web_sales1" / "$cor0"."web_sales0" AS "web_q2_q3_increase", "$cor0"."store_sales00" / "$cor0"."store_sales0" AS "store_q2_q3_increase"
+FROM (SELECT *
+        FROM (SELECT *
+                FROM (SELECT *
+                        FROM (SELECT *
+                                FROM (SELECT *
+                                        FROM (SELECT "$cor5"."ca_county", "$cor5"."d_qoy", "$cor5"."d_year", CASE WHEN COUNT("$cor5"."ss_ext_sales_price") = 0 THEN NULL ELSE COALESCE(SUM("$cor5"."ss_ext_sales_price"), 0) END AS "store_sales"
+                                                FROM (SELECT *
+                                                        FROM (SELECT *
+                                                                FROM (SELECT *
+                                                                        FROM "store_sales"
+                                                                        WHERE "ss_list_price" >= 107 AND "ss_list_price" <= 121) AS "$cor7",
+                                                                    LATERAL (SELECT *
+                                                                        FROM "date_dim") AS "t0"
+                                                                WHERE "$cor7"."ss_sold_date_sk" = "t0"."d_date_sk") AS "$cor6",
+                                                            LATERAL (SELECT *
+                                                                FROM "customer_address"
+                                                                WHERE CAST("ca_state" AS CHAR(2)) IN ('KS', 'ND')) AS "t3"
+                                                        WHERE "$cor6"."ss_addr_sk" = "t3"."ca_address_sk") AS "$cor5",
+                                                    LATERAL (SELECT *
+                                                        FROM "item"
+                                                        WHERE ("i_color" = 'mint' OR "i_color" = 'thistle') AND ("i_manager_id" >= 13 AND "i_manager_id" <= 32)) AS "t6"
+                                                WHERE "$cor5"."ss_item_sk" = "t6"."i_item_sk"
+                                                GROUP BY "$cor5"."d_year", "$cor5"."d_qoy", "$cor5"."ca_county") AS "t10"
+                                        WHERE "t10"."d_qoy" = 1 AND "t10"."d_year" = 1998) AS "$cor4",
+                                    LATERAL (SELECT *
+                                        FROM (SELECT "$cor5"."ca_county0", "$cor5"."d_qoy0", "$cor5"."d_year0", CASE WHEN COUNT("$cor5"."ss_ext_sales_price0") = 0 THEN NULL ELSE COALESCE(SUM("$cor5"."ss_ext_sales_price0"), 0) END AS "store_sales"
+                                                FROM (SELECT *
+                                                        FROM (SELECT *
+                                                                FROM (SELECT *
+                                                                        FROM "store_sales" AS "store_sales0" ("ss_sold_date_sk0", "ss_sold_time_sk0", "ss_item_sk0", "ss_customer_sk0", "ss_cdemo_sk0", "ss_hdemo_sk0", "ss_addr_sk0", "ss_store_sk0", "ss_promo_sk0", "ss_ticket_number0", "ss_quantity0", "ss_wholesale_cost0", "ss_list_price0", "ss_sales_price0", "ss_ext_discount_amt0", "ss_ext_sales_price0", "ss_ext_wholesale_cost0", "ss_ext_list_price0", "ss_ext_tax0", "ss_coupon_amt0", "ss_net_paid0", "ss_net_paid_inc_tax0", "ss_net_profit0")
+                                                                        WHERE "ss_list_price0" >= 107 AND "ss_list_price0" <= 121) AS "$cor7",
+                                                                    LATERAL (SELECT *
+                                                                        FROM "date_dim" AS "date_dim0" ("d_date_sk0", "d_date_id0", "d_date0", "d_month_seq0", "d_week_seq0", "d_quarter_seq0", "d_year0", "d_dow0", "d_moy0", "d_dom0", "d_qoy0", "d_fy_year0", "d_fy_quarter_seq0", "d_fy_week_seq0", "d_day_name0", "d_quarter_name0", "d_holiday0", "d_weekend0", "d_following_holiday0", "d_first_dom0", "d_last_dom0", "d_same_day_ly0", "d_same_day_lq0", "d_current_day0", "d_current_week0", "d_current_month0", "d_current_quarter0", "d_current_year0")) AS "t13"
+                                                                WHERE "$cor7"."ss_sold_date_sk0" = "t13"."d_date_sk0") AS "$cor6",
+                                                            LATERAL (SELECT *
+                                                                FROM "customer_address" AS "customer_address0" ("ca_address_sk0", "ca_address_id0", "ca_street_number0", "ca_street_name0", "ca_street_type0", "ca_suite_number0", "ca_city0", "ca_county0", "ca_state0", "ca_zip0", "ca_country0", "ca_gmt_offset0", "ca_location_type0")
+                                                                WHERE CAST("ca_state0" AS CHAR(2)) IN ('KS', 'ND')) AS "t16"
+                                                        WHERE "$cor6"."ss_addr_sk0" = "t16"."ca_address_sk0") AS "$cor5",
+                                                    LATERAL (SELECT *
+                                                        FROM "item" AS "item0" ("i_item_sk0", "i_item_id0", "i_rec_start_date0", "i_rec_end_date0", "i_item_desc0", "i_current_price0", "i_wholesale_cost0", "i_brand_id0", "i_brand0", "i_class_id0", "i_class0", "i_category_id0", "i_category0", "i_manufact_id0", "i_manufact0", "i_size0", "i_formulation0", "i_color0", "i_units0", "i_container0", "i_manager_id0", "i_product_name0")
+                                                        WHERE ("i_color0" = 'mint' OR "i_color0" = 'thistle') AND ("i_manager_id0" >= 13 AND "i_manager_id0" <= 32)) AS "t19"
+                                                WHERE "$cor5"."ss_item_sk0" = "t19"."i_item_sk0"
+                                                GROUP BY "$cor5"."d_year0", "$cor5"."d_qoy0", "$cor5"."ca_county0") AS "t23"
+                                        WHERE "t23"."d_qoy0" = 2 AND "t23"."d_year0" = 1998) AS "t25"
+                                WHERE "$cor4"."ca_county" = "t25"."ca_county0") AS "$cor3",
+                            LATERAL (SELECT *
+                                FROM (SELECT "$cor5"."ca_county1", "$cor5"."d_qoy1", "$cor5"."d_year1", CASE WHEN COUNT("$cor5"."ss_ext_sales_price1") = 0 THEN NULL ELSE COALESCE(SUM("$cor5"."ss_ext_sales_price1"), 0) END AS "store_sales0"
+                                        FROM (SELECT *
+                                                FROM (SELECT *
+                                                        FROM (SELECT *
+                                                                FROM "store_sales" AS "store_sales1" ("ss_sold_date_sk1", "ss_sold_time_sk1", "ss_item_sk1", "ss_customer_sk1", "ss_cdemo_sk1", "ss_hdemo_sk1", "ss_addr_sk1", "ss_store_sk1", "ss_promo_sk1", "ss_ticket_number1", "ss_quantity1", "ss_wholesale_cost1", "ss_list_price1", "ss_sales_price1", "ss_ext_discount_amt1", "ss_ext_sales_price1", "ss_ext_wholesale_cost1", "ss_ext_list_price1", "ss_ext_tax1", "ss_coupon_amt1", "ss_net_paid1", "ss_net_paid_inc_tax1", "ss_net_profit1")
+                                                                WHERE "ss_list_price1" >= 107 AND "ss_list_price1" <= 121) AS "$cor7",
+                                                            LATERAL (SELECT *
+                                                                FROM "date_dim" AS "date_dim1" ("d_date_sk1", "d_date_id1", "d_date1", "d_month_seq1", "d_week_seq1", "d_quarter_seq1", "d_year1", "d_dow1", "d_moy1", "d_dom1", "d_qoy1", "d_fy_year1", "d_fy_quarter_seq1", "d_fy_week_seq1", "d_day_name1", "d_quarter_name1", "d_holiday1", "d_weekend1", "d_following_holiday1", "d_first_dom1", "d_last_dom1", "d_same_day_ly1", "d_same_day_lq1", "d_current_day1", "d_current_week1", "d_current_month1", "d_current_quarter1", "d_current_year1")) AS "t28"
+                                                        WHERE "$cor7"."ss_sold_date_sk1" = "t28"."d_date_sk1") AS "$cor6",
+                                                    LATERAL (SELECT *
+                                                        FROM "customer_address" AS "customer_address1" ("ca_address_sk1", "ca_address_id1", "ca_street_number1", "ca_street_name1", "ca_street_type1", "ca_suite_number1", "ca_city1", "ca_county1", "ca_state1", "ca_zip1", "ca_country1", "ca_gmt_offset1", "ca_location_type1")
+                                                        WHERE CAST("ca_state1" AS CHAR(2)) IN ('KS', 'ND')) AS "t31"
+                                                WHERE "$cor6"."ss_addr_sk1" = "t31"."ca_address_sk1") AS "$cor5",
+                                            LATERAL (SELECT *
+                                                FROM "item" AS "item1" ("i_item_sk1", "i_item_id1", "i_rec_start_date1", "i_rec_end_date1", "i_item_desc1", "i_current_price1", "i_wholesale_cost1", "i_brand_id1", "i_brand1", "i_class_id1", "i_class1", "i_category_id1", "i_category1", "i_manufact_id1", "i_manufact1", "i_size1", "i_formulation1", "i_color1", "i_units1", "i_container1", "i_manager_id1", "i_product_name1")
+                                                WHERE ("i_color1" = 'mint' OR "i_color1" = 'thistle') AND ("i_manager_id1" >= 13 AND "i_manager_id1" <= 32)) AS "t34"
+                                        WHERE "$cor5"."ss_item_sk1" = "t34"."i_item_sk1"
+                                        GROUP BY "$cor5"."d_year1", "$cor5"."d_qoy1", "$cor5"."ca_county1") AS "t38"
+                                WHERE "t38"."d_qoy1" = 3 AND "t38"."d_year1" = 1998) AS "t40"
+                        WHERE "$cor3"."ca_county0" = "t40"."ca_county1") AS "$cor2",
+                    LATERAL (SELECT *
+                        FROM (SELECT "$cor8"."ca_county2", "$cor8"."d_qoy2", "$cor8"."d_year2", CASE WHEN COUNT("$cor8"."ws_ext_sales_price") = 0 THEN NULL ELSE COALESCE(SUM("$cor8"."ws_ext_sales_price"), 0) END AS "web_sales"
+                                FROM (SELECT *
+                                        FROM (SELECT *
+                                                FROM (SELECT *
+                                                        FROM "web_sales"
+                                                        WHERE "ws_list_price" >= 107 AND "ws_list_price" <= 121) AS "$cor10",
+                                                    LATERAL (SELECT *
+                                                        FROM "date_dim" AS "date_dim2" ("d_date_sk2", "d_date_id2", "d_date2", "d_month_seq2", "d_week_seq2", "d_quarter_seq2", "d_year2", "d_dow2", "d_moy2", "d_dom2", "d_qoy2", "d_fy_year2", "d_fy_quarter_seq2", "d_fy_week_seq2", "d_day_name2", "d_quarter_name2", "d_holiday2", "d_weekend2", "d_following_holiday2", "d_first_dom2", "d_last_dom2", "d_same_day_ly2", "d_same_day_lq2", "d_current_day2", "d_current_week2", "d_current_month2", "d_current_quarter2", "d_current_year2")) AS "t43"
+                                                WHERE "$cor10"."ws_sold_date_sk" = "t43"."d_date_sk2") AS "$cor9",
+                                            LATERAL (SELECT *
+                                                FROM "customer_address" AS "customer_address2" ("ca_address_sk2", "ca_address_id2", "ca_street_number2", "ca_street_name2", "ca_street_type2", "ca_suite_number2", "ca_city2", "ca_county2", "ca_state2", "ca_zip2", "ca_country2", "ca_gmt_offset2", "ca_location_type2")
+                                                WHERE CAST("ca_state2" AS CHAR(2)) IN ('KS', 'ND')) AS "t46"
+                                        WHERE "$cor9"."ws_bill_addr_sk" = "t46"."ca_address_sk2") AS "$cor8",
+                                    LATERAL (SELECT *
+                                        FROM "item" AS "item2" ("i_item_sk2", "i_item_id2", "i_rec_start_date2", "i_rec_end_date2", "i_item_desc2", "i_current_price2", "i_wholesale_cost2", "i_brand_id2", "i_brand2", "i_class_id2", "i_class2", "i_category_id2", "i_category2", "i_manufact_id2", "i_manufact2", "i_size2", "i_formulation2", "i_color2", "i_units2", "i_container2", "i_manager_id2", "i_product_name2")
+                                        WHERE ("i_color2" = 'mint' OR "i_color2" = 'thistle') AND ("i_manager_id2" >= 13 AND "i_manager_id2" <= 32)) AS "t49"
+                                WHERE "$cor8"."ws_item_sk" = "t49"."i_item_sk2"
+                                GROUP BY "$cor8"."d_year2", "$cor8"."d_qoy2", "$cor8"."ca_county2") AS "t53"
+                        WHERE "t53"."d_qoy2" = 1 AND "t53"."d_year2" = 1998) AS "t55"
+                WHERE "$cor2"."ca_county" = "t55"."ca_county2") AS "$cor1",
+            LATERAL (SELECT *
+                FROM (SELECT "$cor8"."ca_county3", "$cor8"."d_qoy3", "$cor8"."d_year3", CASE WHEN COUNT("$cor8"."ws_ext_sales_price0") = 0 THEN NULL ELSE COALESCE(SUM("$cor8"."ws_ext_sales_price0"), 0) END AS "web_sales0"
+                        FROM (SELECT *
+                                FROM (SELECT *
+                                        FROM (SELECT *
+                                                FROM "web_sales" AS "web_sales0" ("ws_sold_date_sk0", "ws_sold_time_sk0", "ws_ship_date_sk0", "ws_item_sk0", "ws_bill_customer_sk0", "ws_bill_cdemo_sk0", "ws_bill_hdemo_sk0", "ws_bill_addr_sk0", "ws_ship_customer_sk0", "ws_ship_cdemo_sk0", "ws_ship_hdemo_sk0", "ws_ship_addr_sk0", "ws_web_page_sk0", "ws_web_site_sk0", "ws_ship_mode_sk0", "ws_warehouse_sk0", "ws_promo_sk0", "ws_order_number0", "ws_quantity0", "ws_wholesale_cost0", "ws_list_price0", "ws_sales_price0", "ws_ext_discount_amt0", "ws_ext_sales_price0", "ws_ext_wholesale_cost0", "ws_ext_list_price0", "ws_ext_tax0", "ws_coupon_amt0", "ws_ext_ship_cost0", "ws_net_paid0", "ws_net_paid_inc_tax0", "ws_net_paid_inc_ship0", "ws_net_paid_inc_ship_tax0", "ws_net_profit0")
+                                                WHERE "ws_list_price0" >= 107 AND "ws_list_price0" <= 121) AS "$cor10",
+                                            LATERAL (SELECT *
+                                                FROM "date_dim" AS "date_dim3" ("d_date_sk3", "d_date_id3", "d_date3", "d_month_seq3", "d_week_seq3", "d_quarter_seq3", "d_year3", "d_dow3", "d_moy3", "d_dom3", "d_qoy3", "d_fy_year3", "d_fy_quarter_seq3", "d_fy_week_seq3", "d_day_name3", "d_quarter_name3", "d_holiday3", "d_weekend3", "d_following_holiday3", "d_first_dom3", "d_last_dom3", "d_same_day_ly3", "d_same_day_lq3", "d_current_day3", "d_current_week3", "d_current_month3", "d_current_quarter3", "d_current_year3")) AS "t58"
+                                        WHERE "$cor10"."ws_sold_date_sk0" = "t58"."d_date_sk3") AS "$cor9",
+                                    LATERAL (SELECT *
+                                        FROM "customer_address" AS "customer_address3" ("ca_address_sk3", "ca_address_id3", "ca_street_number3", "ca_street_name3", "ca_street_type3", "ca_suite_number3", "ca_city3", "ca_county3", "ca_state3", "ca_zip3", "ca_country3", "ca_gmt_offset3", "ca_location_type3")
+                                        WHERE CAST("ca_state3" AS CHAR(2)) IN ('KS', 'ND')) AS "t61"
+                                WHERE "$cor9"."ws_bill_addr_sk0" = "t61"."ca_address_sk3") AS "$cor8",
+                            LATERAL (SELECT *
+                                FROM "item" AS "item3" ("i_item_sk3", "i_item_id3", "i_rec_start_date3", "i_rec_end_date3", "i_item_desc3", "i_current_price3", "i_wholesale_cost3", "i_brand_id3", "i_brand3", "i_class_id3", "i_class3", "i_category_id3", "i_category3", "i_manufact_id3", "i_manufact3", "i_size3", "i_formulation3", "i_color3", "i_units3", "i_container3", "i_manager_id3", "i_product_name3")
+                                WHERE ("i_color3" = 'mint' OR "i_color3" = 'thistle') AND ("i_manager_id3" >= 13 AND "i_manager_id3" <= 32)) AS "t64"
+                        WHERE "$cor8"."ws_item_sk0" = "t64"."i_item_sk3"
+                        GROUP BY "$cor8"."d_year3", "$cor8"."d_qoy3", "$cor8"."ca_county3") AS "t68"
+                WHERE "t68"."d_qoy3" = 2 AND "t68"."d_year3" = 1998) AS "t70"
+        WHERE "$cor1"."ca_county2" = "t70"."ca_county3" AND CASE WHEN "$cor1"."web_sales" > 0 THEN "t70"."web_sales0" / "$cor1"."web_sales" ELSE NULL END > CASE WHEN "$cor1"."store_sales" > 0 THEN "$cor1"."store_sales0" / "$cor1"."store_sales" ELSE NULL END) AS "$cor0",
+    LATERAL (SELECT *
+        FROM (SELECT "$cor8"."ca_county4", "$cor8"."d_qoy4", "$cor8"."d_year4", CASE WHEN COUNT("$cor8"."ws_ext_sales_price1") = 0 THEN NULL ELSE COALESCE(SUM("$cor8"."ws_ext_sales_price1"), 0) END AS "web_sales1"
+                FROM (SELECT *
+                        FROM (SELECT *
+                                FROM (SELECT *
+                                        FROM "web_sales" AS "web_sales1" ("ws_sold_date_sk1", "ws_sold_time_sk1", "ws_ship_date_sk1", "ws_item_sk1", "ws_bill_customer_sk1", "ws_bill_cdemo_sk1", "ws_bill_hdemo_sk1", "ws_bill_addr_sk1", "ws_ship_customer_sk1", "ws_ship_cdemo_sk1", "ws_ship_hdemo_sk1", "ws_ship_addr_sk1", "ws_web_page_sk1", "ws_web_site_sk1", "ws_ship_mode_sk1", "ws_warehouse_sk1", "ws_promo_sk1", "ws_order_number1", "ws_quantity1", "ws_wholesale_cost1", "ws_list_price1", "ws_sales_price1", "ws_ext_discount_amt1", "ws_ext_sales_price1", "ws_ext_wholesale_cost1", "ws_ext_list_price1", "ws_ext_tax1", "ws_coupon_amt1", "ws_ext_ship_cost1", "ws_net_paid1", "ws_net_paid_inc_tax1", "ws_net_paid_inc_ship1", "ws_net_paid_inc_ship_tax1", "ws_net_profit1")
+                                        WHERE "ws_list_price1" >= 107 AND "ws_list_price1" <= 121) AS "$cor10",
+                                    LATERAL (SELECT *
+                                        FROM "date_dim" AS "date_dim4" ("d_date_sk4", "d_date_id4", "d_date4", "d_month_seq4", "d_week_seq4", "d_quarter_seq4", "d_year4", "d_dow4", "d_moy4", "d_dom4", "d_qoy4", "d_fy_year4", "d_fy_quarter_seq4", "d_fy_week_seq4", "d_day_name4", "d_quarter_name4", "d_holiday4", "d_weekend4", "d_following_holiday4", "d_first_dom4", "d_last_dom4", "d_same_day_ly4", "d_same_day_lq4", "d_current_day4", "d_current_week4", "d_current_month4", "d_current_quarter4", "d_current_year4")) AS "t73"
+                                WHERE "$cor10"."ws_sold_date_sk1" = "t73"."d_date_sk4") AS "$cor9",
+                            LATERAL (SELECT *
+                                FROM "customer_address" AS "customer_address4" ("ca_address_sk4", "ca_address_id4", "ca_street_number4", "ca_street_name4", "ca_street_type4", "ca_suite_number4", "ca_city4", "ca_county4", "ca_state4", "ca_zip4", "ca_country4", "ca_gmt_offset4", "ca_location_type4")
+                                WHERE CAST("ca_state4" AS CHAR(2)) IN ('KS', 'ND')) AS "t76"
+                        WHERE "$cor9"."ws_bill_addr_sk1" = "t76"."ca_address_sk4") AS "$cor8",
+                    LATERAL (SELECT *
+                        FROM "item" AS "item4" ("i_item_sk4", "i_item_id4", "i_rec_start_date4", "i_rec_end_date4", "i_item_desc4", "i_current_price4", "i_wholesale_cost4", "i_brand_id4", "i_brand4", "i_class_id4", "i_class4", "i_category_id4", "i_category4", "i_manufact_id4", "i_manufact4", "i_size4", "i_formulation4", "i_color4", "i_units4", "i_container4", "i_manager_id4", "i_product_name4")
+                        WHERE ("i_color4" = 'mint' OR "i_color4" = 'thistle') AND ("i_manager_id4" >= 13 AND "i_manager_id4" <= 32)) AS "t79"
+                WHERE "$cor8"."ws_item_sk1" = "t79"."i_item_sk4"
+                GROUP BY "$cor8"."d_year4", "$cor8"."d_qoy4", "$cor8"."ca_county4") AS "t83"
+        WHERE "t83"."d_qoy4" = 3 AND "t83"."d_year4" = 1998) AS "t85"
+WHERE "$cor0"."ca_county2" = "t85"."ca_county4" AND CASE WHEN "$cor0"."web_sales0" > 0 THEN "t85"."web_sales1" / "$cor0"."web_sales0" ELSE NULL END > CASE WHEN "$cor0"."store_sales0" > 0 THEN "$cor0"."store_sales00" / "$cor0"."store_sales0" ELSE NULL END
+ORDER BY 5;
+[AmbiguousColumn('column reference "store_sales" is ambiguous\nLINE 109: ..." / "$cor1"."web_sales" ELSE NULL END > CASE WHEN "$cor1"."s...\n                                                               ^\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n')]
+07:08:45,664 root ERROR Failed to execute pgsql_actual_time SELECT "$cor0"."ca_county", CAST(1998 AS INTEGER) AS "d_year5", "$cor0"."web_sales0" / "$cor0"."web_sales" AS "web_q1_q2_increase", "$cor0"."store_sales0" / "$cor0"."store_sales" AS "store_q1_q2_increase", "t85"."web_sales1" / "$cor0"."web_sales0" AS "web_q2_q3_increase", "$cor0"."store_sales00" / "$cor0"."store_sales0" AS "store_q2_q3_increase"
+FROM (SELECT *
+        FROM (SELECT *
+                FROM (SELECT *
+                        FROM (SELECT *
+                                FROM (SELECT *
+                                        FROM (SELECT "$cor5"."ca_county", "$cor5"."d_qoy", "$cor5"."d_year", CASE WHEN COUNT("$cor5"."ss_ext_sales_price") = 0 THEN NULL ELSE COALESCE(SUM("$cor5"."ss_ext_sales_price"), 0) END AS "store_sales"
+                                                FROM (SELECT *
+                                                        FROM (SELECT *
+                                                                FROM (SELECT *
+                                                                        FROM "store_sales"
+                                                                        WHERE "ss_list_price" >= 107 AND "ss_list_price" <= 121) AS "$cor7",
+                                                                    LATERAL (SELECT *
+                                                                        FROM "date_dim") AS "t0"
+                                                                WHERE "$cor7"."ss_sold_date_sk" = "t0"."d_date_sk") AS "$cor6",
+                                                            LATERAL (SELECT *
+                                                                FROM "customer_address"
+                                                                WHERE CAST("ca_state" AS CHAR(2)) IN ('KS', 'ND')) AS "t3"
+                                                        WHERE "$cor6"."ss_addr_sk" = "t3"."ca_address_sk") AS "$cor5",
+                                                    LATERAL (SELECT *
+                                                        FROM "item"
+                                                        WHERE ("i_color" = 'mint' OR "i_color" = 'thistle') AND ("i_manager_id" >= 13 AND "i_manager_id" <= 32)) AS "t6"
+                                                WHERE "$cor5"."ss_item_sk" = "t6"."i_item_sk"
+                                                GROUP BY "$cor5"."d_year", "$cor5"."d_qoy", "$cor5"."ca_county") AS "t10"
+                                        WHERE "t10"."d_qoy" = 1 AND "t10"."d_year" = 1998) AS "$cor4",
+                                    LATERAL (SELECT *
+                                        FROM (SELECT "$cor5"."ca_county0", "$cor5"."d_qoy0", "$cor5"."d_year0", CASE WHEN COUNT("$cor5"."ss_ext_sales_price0") = 0 THEN NULL ELSE COALESCE(SUM("$cor5"."ss_ext_sales_price0"), 0) END AS "store_sales"
+                                                FROM (SELECT *
+                                                        FROM (SELECT *
+                                                                FROM (SELECT *
+                                                                        FROM "store_sales" AS "store_sales0" ("ss_sold_date_sk0", "ss_sold_time_sk0", "ss_item_sk0", "ss_customer_sk0", "ss_cdemo_sk0", "ss_hdemo_sk0", "ss_addr_sk0", "ss_store_sk0", "ss_promo_sk0", "ss_ticket_number0", "ss_quantity0", "ss_wholesale_cost0", "ss_list_price0", "ss_sales_price0", "ss_ext_discount_amt0", "ss_ext_sales_price0", "ss_ext_wholesale_cost0", "ss_ext_list_price0", "ss_ext_tax0", "ss_coupon_amt0", "ss_net_paid0", "ss_net_paid_inc_tax0", "ss_net_profit0")
+                                                                        WHERE "ss_list_price0" >= 107 AND "ss_list_price0" <= 121) AS "$cor7",
+                                                                    LATERAL (SELECT *
+                                                                        FROM "date_dim" AS "date_dim0" ("d_date_sk0", "d_date_id0", "d_date0", "d_month_seq0", "d_week_seq0", "d_quarter_seq0", "d_year0", "d_dow0", "d_moy0", "d_dom0", "d_qoy0", "d_fy_year0", "d_fy_quarter_seq0", "d_fy_week_seq0", "d_day_name0", "d_quarter_name0", "d_holiday0", "d_weekend0", "d_following_holiday0", "d_first_dom0", "d_last_dom0", "d_same_day_ly0", "d_same_day_lq0", "d_current_day0", "d_current_week0", "d_current_month0", "d_current_quarter0", "d_current_year0")) AS "t13"
+                                                                WHERE "$cor7"."ss_sold_date_sk0" = "t13"."d_date_sk0") AS "$cor6",
+                                                            LATERAL (SELECT *
+                                                                FROM "customer_address" AS "customer_address0" ("ca_address_sk0", "ca_address_id0", "ca_street_number0", "ca_street_name0", "ca_street_type0", "ca_suite_number0", "ca_city0", "ca_county0", "ca_state0", "ca_zip0", "ca_country0", "ca_gmt_offset0", "ca_location_type0")
+                                                                WHERE CAST("ca_state0" AS CHAR(2)) IN ('KS', 'ND')) AS "t16"
+                                                        WHERE "$cor6"."ss_addr_sk0" = "t16"."ca_address_sk0") AS "$cor5",
+                                                    LATERAL (SELECT *
+                                                        FROM "item" AS "item0" ("i_item_sk0", "i_item_id0", "i_rec_start_date0", "i_rec_end_date0", "i_item_desc0", "i_current_price0", "i_wholesale_cost0", "i_brand_id0", "i_brand0", "i_class_id0", "i_class0", "i_category_id0", "i_category0", "i_manufact_id0", "i_manufact0", "i_size0", "i_formulation0", "i_color0", "i_units0", "i_container0", "i_manager_id0", "i_product_name0")
+                                                        WHERE ("i_color0" = 'mint' OR "i_color0" = 'thistle') AND ("i_manager_id0" >= 13 AND "i_manager_id0" <= 32)) AS "t19"
+                                                WHERE "$cor5"."ss_item_sk0" = "t19"."i_item_sk0"
+                                                GROUP BY "$cor5"."d_year0", "$cor5"."d_qoy0", "$cor5"."ca_county0") AS "t23"
+                                        WHERE "t23"."d_qoy0" = 2 AND "t23"."d_year0" = 1998) AS "t25"
+                                WHERE "$cor4"."ca_county" = "t25"."ca_county0") AS "$cor3",
+                            LATERAL (SELECT *
+                                FROM (SELECT "$cor5"."ca_county1", "$cor5"."d_qoy1", "$cor5"."d_year1", CASE WHEN COUNT("$cor5"."ss_ext_sales_price1") = 0 THEN NULL ELSE COALESCE(SUM("$cor5"."ss_ext_sales_price1"), 0) END AS "store_sales0"
+                                        FROM (SELECT *
+                                                FROM (SELECT *
+                                                        FROM (SELECT *
+                                                                FROM "store_sales" AS "store_sales1" ("ss_sold_date_sk1", "ss_sold_time_sk1", "ss_item_sk1", "ss_customer_sk1", "ss_cdemo_sk1", "ss_hdemo_sk1", "ss_addr_sk1", "ss_store_sk1", "ss_promo_sk1", "ss_ticket_number1", "ss_quantity1", "ss_wholesale_cost1", "ss_list_price1", "ss_sales_price1", "ss_ext_discount_amt1", "ss_ext_sales_price1", "ss_ext_wholesale_cost1", "ss_ext_list_price1", "ss_ext_tax1", "ss_coupon_amt1", "ss_net_paid1", "ss_net_paid_inc_tax1", "ss_net_profit1")
+                                                                WHERE "ss_list_price1" >= 107 AND "ss_list_price1" <= 121) AS "$cor7",
+                                                            LATERAL (SELECT *
+                                                                FROM "date_dim" AS "date_dim1" ("d_date_sk1", "d_date_id1", "d_date1", "d_month_seq1", "d_week_seq1", "d_quarter_seq1", "d_year1", "d_dow1", "d_moy1", "d_dom1", "d_qoy1", "d_fy_year1", "d_fy_quarter_seq1", "d_fy_week_seq1", "d_day_name1", "d_quarter_name1", "d_holiday1", "d_weekend1", "d_following_holiday1", "d_first_dom1", "d_last_dom1", "d_same_day_ly1", "d_same_day_lq1", "d_current_day1", "d_current_week1", "d_current_month1", "d_current_quarter1", "d_current_year1")) AS "t28"
+                                                        WHERE "$cor7"."ss_sold_date_sk1" = "t28"."d_date_sk1") AS "$cor6",
+                                                    LATERAL (SELECT *
+                                                        FROM "customer_address" AS "customer_address1" ("ca_address_sk1", "ca_address_id1", "ca_street_number1", "ca_street_name1", "ca_street_type1", "ca_suite_number1", "ca_city1", "ca_county1", "ca_state1", "ca_zip1", "ca_country1", "ca_gmt_offset1", "ca_location_type1")
+                                                        WHERE CAST("ca_state1" AS CHAR(2)) IN ('KS', 'ND')) AS "t31"
+                                                WHERE "$cor6"."ss_addr_sk1" = "t31"."ca_address_sk1") AS "$cor5",
+                                            LATERAL (SELECT *
+                                                FROM "item" AS "item1" ("i_item_sk1", "i_item_id1", "i_rec_start_date1", "i_rec_end_date1", "i_item_desc1", "i_current_price1", "i_wholesale_cost1", "i_brand_id1", "i_brand1", "i_class_id1", "i_class1", "i_category_id1", "i_category1", "i_manufact_id1", "i_manufact1", "i_size1", "i_formulation1", "i_color1", "i_units1", "i_container1", "i_manager_id1", "i_product_name1")
+                                                WHERE ("i_color1" = 'mint' OR "i_color1" = 'thistle') AND ("i_manager_id1" >= 13 AND "i_manager_id1" <= 32)) AS "t34"
+                                        WHERE "$cor5"."ss_item_sk1" = "t34"."i_item_sk1"
+                                        GROUP BY "$cor5"."d_year1", "$cor5"."d_qoy1", "$cor5"."ca_county1") AS "t38"
+                                WHERE "t38"."d_qoy1" = 3 AND "t38"."d_year1" = 1998) AS "t40"
+                        WHERE "$cor3"."ca_county0" = "t40"."ca_county1") AS "$cor2",
+                    LATERAL (SELECT *
+                        FROM (SELECT "$cor8"."ca_county2", "$cor8"."d_qoy2", "$cor8"."d_year2", CASE WHEN COUNT("$cor8"."ws_ext_sales_price") = 0 THEN NULL ELSE COALESCE(SUM("$cor8"."ws_ext_sales_price"), 0) END AS "web_sales"
+                                FROM (SELECT *
+                                        FROM (SELECT *
+                                                FROM (SELECT *
+                                                        FROM "web_sales"
+                                                        WHERE "ws_list_price" >= 107 AND "ws_list_price" <= 121) AS "$cor10",
+                                                    LATERAL (SELECT *
+                                                        FROM "date_dim" AS "date_dim2" ("d_date_sk2", "d_date_id2", "d_date2", "d_month_seq2", "d_week_seq2", "d_quarter_seq2", "d_year2", "d_dow2", "d_moy2", "d_dom2", "d_qoy2", "d_fy_year2", "d_fy_quarter_seq2", "d_fy_week_seq2", "d_day_name2", "d_quarter_name2", "d_holiday2", "d_weekend2", "d_following_holiday2", "d_first_dom2", "d_last_dom2", "d_same_day_ly2", "d_same_day_lq2", "d_current_day2", "d_current_week2", "d_current_month2", "d_current_quarter2", "d_current_year2")) AS "t43"
+                                                WHERE "$cor10"."ws_sold_date_sk" = "t43"."d_date_sk2") AS "$cor9",
+                                            LATERAL (SELECT *
+                                                FROM "customer_address" AS "customer_address2" ("ca_address_sk2", "ca_address_id2", "ca_street_number2", "ca_street_name2", "ca_street_type2", "ca_suite_number2", "ca_city2", "ca_county2", "ca_state2", "ca_zip2", "ca_country2", "ca_gmt_offset2", "ca_location_type2")
+                                                WHERE CAST("ca_state2" AS CHAR(2)) IN ('KS', 'ND')) AS "t46"
+                                        WHERE "$cor9"."ws_bill_addr_sk" = "t46"."ca_address_sk2") AS "$cor8",
+                                    LATERAL (SELECT *
+                                        FROM "item" AS "item2" ("i_item_sk2", "i_item_id2", "i_rec_start_date2", "i_rec_end_date2", "i_item_desc2", "i_current_price2", "i_wholesale_cost2", "i_brand_id2", "i_brand2", "i_class_id2", "i_class2", "i_category_id2", "i_category2", "i_manufact_id2", "i_manufact2", "i_size2", "i_formulation2", "i_color2", "i_units2", "i_container2", "i_manager_id2", "i_product_name2")
+                                        WHERE ("i_color2" = 'mint' OR "i_color2" = 'thistle') AND ("i_manager_id2" >= 13 AND "i_manager_id2" <= 32)) AS "t49"
+                                WHERE "$cor8"."ws_item_sk" = "t49"."i_item_sk2"
+                                GROUP BY "$cor8"."d_year2", "$cor8"."d_qoy2", "$cor8"."ca_county2") AS "t53"
+                        WHERE "t53"."d_qoy2" = 1 AND "t53"."d_year2" = 1998) AS "t55"
+                WHERE "$cor2"."ca_county" = "t55"."ca_county2") AS "$cor1",
+            LATERAL (SELECT *
+                FROM (SELECT "$cor8"."ca_county3", "$cor8"."d_qoy3", "$cor8"."d_year3", CASE WHEN COUNT("$cor8"."ws_ext_sales_price0") = 0 THEN NULL ELSE COALESCE(SUM("$cor8"."ws_ext_sales_price0"), 0) END AS "web_sales0"
+                        FROM (SELECT *
+                                FROM (SELECT *
+                                        FROM (SELECT *
+                                                FROM "web_sales" AS "web_sales0" ("ws_sold_date_sk0", "ws_sold_time_sk0", "ws_ship_date_sk0", "ws_item_sk0", "ws_bill_customer_sk0", "ws_bill_cdemo_sk0", "ws_bill_hdemo_sk0", "ws_bill_addr_sk0", "ws_ship_customer_sk0", "ws_ship_cdemo_sk0", "ws_ship_hdemo_sk0", "ws_ship_addr_sk0", "ws_web_page_sk0", "ws_web_site_sk0", "ws_ship_mode_sk0", "ws_warehouse_sk0", "ws_promo_sk0", "ws_order_number0", "ws_quantity0", "ws_wholesale_cost0", "ws_list_price0", "ws_sales_price0", "ws_ext_discount_amt0", "ws_ext_sales_price0", "ws_ext_wholesale_cost0", "ws_ext_list_price0", "ws_ext_tax0", "ws_coupon_amt0", "ws_ext_ship_cost0", "ws_net_paid0", "ws_net_paid_inc_tax0", "ws_net_paid_inc_ship0", "ws_net_paid_inc_ship_tax0", "ws_net_profit0")
+                                                WHERE "ws_list_price0" >= 107 AND "ws_list_price0" <= 121) AS "$cor10",
+                                            LATERAL (SELECT *
+                                                FROM "date_dim" AS "date_dim3" ("d_date_sk3", "d_date_id3", "d_date3", "d_month_seq3", "d_week_seq3", "d_quarter_seq3", "d_year3", "d_dow3", "d_moy3", "d_dom3", "d_qoy3", "d_fy_year3", "d_fy_quarter_seq3", "d_fy_week_seq3", "d_day_name3", "d_quarter_name3", "d_holiday3", "d_weekend3", "d_following_holiday3", "d_first_dom3", "d_last_dom3", "d_same_day_ly3", "d_same_day_lq3", "d_current_day3", "d_current_week3", "d_current_month3", "d_current_quarter3", "d_current_year3")) AS "t58"
+                                        WHERE "$cor10"."ws_sold_date_sk0" = "t58"."d_date_sk3") AS "$cor9",
+                                    LATERAL (SELECT *
+                                        FROM "customer_address" AS "customer_address3" ("ca_address_sk3", "ca_address_id3", "ca_street_number3", "ca_street_name3", "ca_street_type3", "ca_suite_number3", "ca_city3", "ca_county3", "ca_state3", "ca_zip3", "ca_country3", "ca_gmt_offset3", "ca_location_type3")
+                                        WHERE CAST("ca_state3" AS CHAR(2)) IN ('KS', 'ND')) AS "t61"
+                                WHERE "$cor9"."ws_bill_addr_sk0" = "t61"."ca_address_sk3") AS "$cor8",
+                            LATERAL (SELECT *
+                                FROM "item" AS "item3" ("i_item_sk3", "i_item_id3", "i_rec_start_date3", "i_rec_end_date3", "i_item_desc3", "i_current_price3", "i_wholesale_cost3", "i_brand_id3", "i_brand3", "i_class_id3", "i_class3", "i_category_id3", "i_category3", "i_manufact_id3", "i_manufact3", "i_size3", "i_formulation3", "i_color3", "i_units3", "i_container3", "i_manager_id3", "i_product_name3")
+                                WHERE ("i_color3" = 'mint' OR "i_color3" = 'thistle') AND ("i_manager_id3" >= 13 AND "i_manager_id3" <= 32)) AS "t64"
+                        WHERE "$cor8"."ws_item_sk0" = "t64"."i_item_sk3"
+                        GROUP BY "$cor8"."d_year3", "$cor8"."d_qoy3", "$cor8"."ca_county3") AS "t68"
+                WHERE "t68"."d_qoy3" = 2 AND "t68"."d_year3" = 1998) AS "t70"
+        WHERE "$cor1"."ca_county2" = "t70"."ca_county3" AND CASE WHEN "$cor1"."web_sales" > 0 THEN "t70"."web_sales0" / "$cor1"."web_sales" ELSE NULL END > CASE WHEN "$cor1"."store_sales" > 0 THEN "$cor1"."store_sales0" / "$cor1"."store_sales" ELSE NULL END) AS "$cor0",
+    LATERAL (SELECT *
+        FROM (SELECT "$cor8"."ca_county4", "$cor8"."d_qoy4", "$cor8"."d_year4", CASE WHEN COUNT("$cor8"."ws_ext_sales_price1") = 0 THEN NULL ELSE COALESCE(SUM("$cor8"."ws_ext_sales_price1"), 0) END AS "web_sales1"
+                FROM (SELECT *
+                        FROM (SELECT *
+                                FROM (SELECT *
+                                        FROM "web_sales" AS "web_sales1" ("ws_sold_date_sk1", "ws_sold_time_sk1", "ws_ship_date_sk1", "ws_item_sk1", "ws_bill_customer_sk1", "ws_bill_cdemo_sk1", "ws_bill_hdemo_sk1", "ws_bill_addr_sk1", "ws_ship_customer_sk1", "ws_ship_cdemo_sk1", "ws_ship_hdemo_sk1", "ws_ship_addr_sk1", "ws_web_page_sk1", "ws_web_site_sk1", "ws_ship_mode_sk1", "ws_warehouse_sk1", "ws_promo_sk1", "ws_order_number1", "ws_quantity1", "ws_wholesale_cost1", "ws_list_price1", "ws_sales_price1", "ws_ext_discount_amt1", "ws_ext_sales_price1", "ws_ext_wholesale_cost1", "ws_ext_list_price1", "ws_ext_tax1", "ws_coupon_amt1", "ws_ext_ship_cost1", "ws_net_paid1", "ws_net_paid_inc_tax1", "ws_net_paid_inc_ship1", "ws_net_paid_inc_ship_tax1", "ws_net_profit1")
+                                        WHERE "ws_list_price1" >= 107 AND "ws_list_price1" <= 121) AS "$cor10",
+                                    LATERAL (SELECT *
+                                        FROM "date_dim" AS "date_dim4" ("d_date_sk4", "d_date_id4", "d_date4", "d_month_seq4", "d_week_seq4", "d_quarter_seq4", "d_year4", "d_dow4", "d_moy4", "d_dom4", "d_qoy4", "d_fy_year4", "d_fy_quarter_seq4", "d_fy_week_seq4", "d_day_name4", "d_quarter_name4", "d_holiday4", "d_weekend4", "d_following_holiday4", "d_first_dom4", "d_last_dom4", "d_same_day_ly4", "d_same_day_lq4", "d_current_day4", "d_current_week4", "d_current_month4", "d_current_quarter4", "d_current_year4")) AS "t73"
+                                WHERE "$cor10"."ws_sold_date_sk1" = "t73"."d_date_sk4") AS "$cor9",
+                            LATERAL (SELECT *
+                                FROM "customer_address" AS "customer_address4" ("ca_address_sk4", "ca_address_id4", "ca_street_number4", "ca_street_name4", "ca_street_type4", "ca_suite_number4", "ca_city4", "ca_county4", "ca_state4", "ca_zip4", "ca_country4", "ca_gmt_offset4", "ca_location_type4")
+                                WHERE CAST("ca_state4" AS CHAR(2)) IN ('KS', 'ND')) AS "t76"
+                        WHERE "$cor9"."ws_bill_addr_sk1" = "t76"."ca_address_sk4") AS "$cor8",
+                    LATERAL (SELECT *
+                        FROM "item" AS "item4" ("i_item_sk4", "i_item_id4", "i_rec_start_date4", "i_rec_end_date4", "i_item_desc4", "i_current_price4", "i_wholesale_cost4", "i_brand_id4", "i_brand4", "i_class_id4", "i_class4", "i_category_id4", "i_category4", "i_manufact_id4", "i_manufact4", "i_size4", "i_formulation4", "i_color4", "i_units4", "i_container4", "i_manager_id4", "i_product_name4")
+                        WHERE ("i_color4" = 'mint' OR "i_color4" = 'thistle') AND ("i_manager_id4" >= 13 AND "i_manager_id4" <= 32)) AS "t79"
+                WHERE "$cor8"."ws_item_sk1" = "t79"."i_item_sk4"
+                GROUP BY "$cor8"."d_year4", "$cor8"."d_qoy4", "$cor8"."ca_county4") AS "t83"
+        WHERE "t83"."d_qoy4" = 3 AND "t83"."d_year4" = 1998) AS "t85"
+WHERE "$cor0"."ca_county2" = "t85"."ca_county4" AND CASE WHEN "$cor0"."web_sales0" > 0 THEN "t85"."web_sales1" / "$cor0"."web_sales0" ELSE NULL END > CASE WHEN "$cor0"."store_sales0" > 0 THEN "$cor0"."store_sales00" / "$cor0"."store_sales0" ELSE NULL END
+ORDER BY 5;
+[AmbiguousColumn('column reference "store_sales" is ambiguous\nLINE 109: ..." / "$cor1"."web_sales" ELSE NULL END > CASE WHEN "$cor1"."s...\n                                                               ^\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n')]
+07:08:45,676 root ERROR Failed to execute pgsql_cost_estimation SELECT "$cor0"."ca_county", CAST(1998 AS INTEGER) AS "d_year5", "$cor0"."web_sales0" / "$cor0"."web_sales" AS "web_q1_q2_increase", "$cor0"."store_sales0" / "$cor0"."store_sales" AS "store_q1_q2_increase", "t91"."web_sales1" / "$cor0"."web_sales0" AS "web_q2_q3_increase", "$cor0"."store_sales00" / "$cor0"."store_sales0" AS "store_q2_q3_increase"
+FROM (SELECT *
+        FROM (SELECT *
+                FROM (SELECT *
+                        FROM (SELECT *
+                                FROM (SELECT *
+                                        FROM (SELECT "$cor5"."ca_county", "$cor5"."d_qoy", "$cor5"."d_year", CASE WHEN COUNT("$cor5"."ss_ext_sales_price") = 0 THEN NULL ELSE COALESCE(SUM("$cor5"."ss_ext_sales_price"), 0) END AS "store_sales"
+                                                FROM (SELECT *
+                                                        FROM (SELECT *
+                                                                FROM (SELECT *
+                                                                        FROM "store_sales"
+                                                                        WHERE "ss_list_price" >= 107 AND "ss_list_price" <= 121) AS "$cor7",
+                                                                    LATERAL (SELECT *
+                                                                        FROM "date_dim") AS "t0"
+                                                                WHERE "$cor7"."ss_sold_date_sk" = "t0"."d_date_sk") AS "$cor6",
+                                                            LATERAL (SELECT *
+                                                                FROM "customer_address"
+                                                                WHERE CAST("ca_state" AS CHAR(2)) IN ('KS', 'ND')) AS "t3"
+                                                        WHERE "$cor6"."ss_addr_sk" = "t3"."ca_address_sk") AS "$cor5",
+                                                    LATERAL (SELECT *
+                                                        FROM "item"
+                                                        WHERE ("i_color" = 'mint' OR "i_color" = 'thistle') AND ("i_manager_id" >= 13 AND "i_manager_id" <= 32)) AS "t6"
+                                                WHERE "$cor5"."ss_item_sk" = "t6"."i_item_sk"
+                                                GROUP BY "$cor5"."d_year", "$cor5"."d_qoy", "$cor5"."ca_county") AS "t11"
+                                        WHERE "t11"."d_qoy" = 1 AND "t11"."d_year" = 1998) AS "$cor4",
+                                    LATERAL (SELECT *
+                                        FROM (SELECT "$cor5"."ca_county0", "$cor5"."d_qoy0", "$cor5"."d_year0", CASE WHEN COUNT("$cor5"."ss_ext_sales_price0") = 0 THEN NULL ELSE COALESCE(SUM("$cor5"."ss_ext_sales_price0"), 0) END AS "store_sales"
+                                                FROM (SELECT *
+                                                        FROM (SELECT *
+                                                                FROM (SELECT *
+                                                                        FROM "store_sales" AS "store_sales0" ("ss_sold_date_sk0", "ss_sold_time_sk0", "ss_item_sk0", "ss_customer_sk0", "ss_cdemo_sk0", "ss_hdemo_sk0", "ss_addr_sk0", "ss_store_sk0", "ss_promo_sk0", "ss_ticket_number0", "ss_quantity0", "ss_wholesale_cost0", "ss_list_price0", "ss_sales_price0", "ss_ext_discount_amt0", "ss_ext_sales_price0", "ss_ext_wholesale_cost0", "ss_ext_list_price0", "ss_ext_tax0", "ss_coupon_amt0", "ss_net_paid0", "ss_net_paid_inc_tax0", "ss_net_profit0")
+                                                                        WHERE "ss_list_price0" >= 107 AND "ss_list_price0" <= 121) AS "$cor7",
+                                                                    LATERAL (SELECT *
+                                                                        FROM "date_dim" AS "date_dim0" ("d_date_sk0", "d_date_id0", "d_date0", "d_month_seq0", "d_week_seq0", "d_quarter_seq0", "d_year0", "d_dow0", "d_moy0", "d_dom0", "d_qoy0", "d_fy_year0", "d_fy_quarter_seq0", "d_fy_week_seq0", "d_day_name0", "d_quarter_name0", "d_holiday0", "d_weekend0", "d_following_holiday0", "d_first_dom0", "d_last_dom0", "d_same_day_ly0", "d_same_day_lq0", "d_current_day0", "d_current_week0", "d_current_month0", "d_current_quarter0", "d_current_year0")) AS "t14"
+                                                                WHERE "$cor7"."ss_sold_date_sk0" = "t14"."d_date_sk0") AS "$cor6",
+                                                            LATERAL (SELECT *
+                                                                FROM "customer_address" AS "customer_address0" ("ca_address_sk0", "ca_address_id0", "ca_street_number0", "ca_street_name0", "ca_street_type0", "ca_suite_number0", "ca_city0", "ca_county0", "ca_state0", "ca_zip0", "ca_country0", "ca_gmt_offset0", "ca_location_type0")
+                                                                WHERE CAST("ca_state0" AS CHAR(2)) IN ('KS', 'ND')) AS "t17"
+                                                        WHERE "$cor6"."ss_addr_sk0" = "t17"."ca_address_sk0") AS "$cor5",
+                                                    LATERAL (SELECT *
+                                                        FROM "item" AS "item0" ("i_item_sk0", "i_item_id0", "i_rec_start_date0", "i_rec_end_date0", "i_item_desc0", "i_current_price0", "i_wholesale_cost0", "i_brand_id0", "i_brand0", "i_class_id0", "i_class0", "i_category_id0", "i_category0", "i_manufact_id0", "i_manufact0", "i_size0", "i_formulation0", "i_color0", "i_units0", "i_container0", "i_manager_id0", "i_product_name0")
+                                                        WHERE ("i_color0" = 'mint' OR "i_color0" = 'thistle') AND ("i_manager_id0" >= 13 AND "i_manager_id0" <= 32)) AS "t20"
+                                                WHERE "$cor5"."ss_item_sk0" = "t20"."i_item_sk0"
+                                                GROUP BY "$cor5"."d_year0", "$cor5"."d_qoy0", "$cor5"."ca_county0") AS "t25"
+                                        WHERE "t25"."d_qoy0" = 2 AND "t25"."d_year0" = 1998) AS "t27"
+                                WHERE "$cor4"."ca_county" = "t27"."ca_county0") AS "$cor3",
+                            LATERAL (SELECT *
+                                FROM (SELECT "$cor5"."ca_county1", "$cor5"."d_qoy1", "$cor5"."d_year1", CASE WHEN COUNT("$cor5"."ss_ext_sales_price1") = 0 THEN NULL ELSE COALESCE(SUM("$cor5"."ss_ext_sales_price1"), 0) END AS "store_sales0"
+                                        FROM (SELECT *
+                                                FROM (SELECT *
+                                                        FROM (SELECT *
+                                                                FROM "store_sales" AS "store_sales1" ("ss_sold_date_sk1", "ss_sold_time_sk1", "ss_item_sk1", "ss_customer_sk1", "ss_cdemo_sk1", "ss_hdemo_sk1", "ss_addr_sk1", "ss_store_sk1", "ss_promo_sk1", "ss_ticket_number1", "ss_quantity1", "ss_wholesale_cost1", "ss_list_price1", "ss_sales_price1", "ss_ext_discount_amt1", "ss_ext_sales_price1", "ss_ext_wholesale_cost1", "ss_ext_list_price1", "ss_ext_tax1", "ss_coupon_amt1", "ss_net_paid1", "ss_net_paid_inc_tax1", "ss_net_profit1")
+                                                                WHERE "ss_list_price1" >= 107 AND "ss_list_price1" <= 121) AS "$cor7",
+                                                            LATERAL (SELECT *
+                                                                FROM "date_dim" AS "date_dim1" ("d_date_sk1", "d_date_id1", "d_date1", "d_month_seq1", "d_week_seq1", "d_quarter_seq1", "d_year1", "d_dow1", "d_moy1", "d_dom1", "d_qoy1", "d_fy_year1", "d_fy_quarter_seq1", "d_fy_week_seq1", "d_day_name1", "d_quarter_name1", "d_holiday1", "d_weekend1", "d_following_holiday1", "d_first_dom1", "d_last_dom1", "d_same_day_ly1", "d_same_day_lq1", "d_current_day1", "d_current_week1", "d_current_month1", "d_current_quarter1", "d_current_year1")) AS "t30"
+                                                        WHERE "$cor7"."ss_sold_date_sk1" = "t30"."d_date_sk1") AS "$cor6",
+                                                    LATERAL (SELECT *
+                                                        FROM "customer_address" AS "customer_address1" ("ca_address_sk1", "ca_address_id1", "ca_street_number1", "ca_street_name1", "ca_street_type1", "ca_suite_number1", "ca_city1", "ca_county1", "ca_state1", "ca_zip1", "ca_country1", "ca_gmt_offset1", "ca_location_type1")
+                                                        WHERE CAST("ca_state1" AS CHAR(2)) IN ('KS', 'ND')) AS "t33"
+                                                WHERE "$cor6"."ss_addr_sk1" = "t33"."ca_address_sk1") AS "$cor5",
+                                            LATERAL (SELECT *
+                                                FROM "item" AS "item1" ("i_item_sk1", "i_item_id1", "i_rec_start_date1", "i_rec_end_date1", "i_item_desc1", "i_current_price1", "i_wholesale_cost1", "i_brand_id1", "i_brand1", "i_class_id1", "i_class1", "i_category_id1", "i_category1", "i_manufact_id1", "i_manufact1", "i_size1", "i_formulation1", "i_color1", "i_units1", "i_container1", "i_manager_id1", "i_product_name1")
+                                                WHERE ("i_color1" = 'mint' OR "i_color1" = 'thistle') AND ("i_manager_id1" >= 13 AND "i_manager_id1" <= 32)) AS "t36"
+                                        WHERE "$cor5"."ss_item_sk1" = "t36"."i_item_sk1"
+                                        GROUP BY "$cor5"."d_year1", "$cor5"."d_qoy1", "$cor5"."ca_county1") AS "t41"
+                                WHERE "t41"."d_qoy1" = 3 AND "t41"."d_year1" = 1998) AS "t43"
+                        WHERE "$cor3"."ca_county0" = "t43"."ca_county1") AS "$cor2",
+                    LATERAL (SELECT *
+                        FROM (SELECT "$cor8"."ca_county2", "$cor8"."d_qoy2", "$cor8"."d_year2", CASE WHEN COUNT("$cor8"."ws_ext_sales_price") = 0 THEN NULL ELSE COALESCE(SUM("$cor8"."ws_ext_sales_price"), 0) END AS "web_sales"
+                                FROM (SELECT *
+                                        FROM (SELECT *
+                                                FROM (SELECT *
+                                                        FROM "web_sales"
+                                                        WHERE "ws_list_price" >= 107 AND "ws_list_price" <= 121) AS "$cor10",
+                                                    LATERAL (SELECT *
+                                                        FROM "date_dim" AS "date_dim2" ("d_date_sk2", "d_date_id2", "d_date2", "d_month_seq2", "d_week_seq2", "d_quarter_seq2", "d_year2", "d_dow2", "d_moy2", "d_dom2", "d_qoy2", "d_fy_year2", "d_fy_quarter_seq2", "d_fy_week_seq2", "d_day_name2", "d_quarter_name2", "d_holiday2", "d_weekend2", "d_following_holiday2", "d_first_dom2", "d_last_dom2", "d_same_day_ly2", "d_same_day_lq2", "d_current_day2", "d_current_week2", "d_current_month2", "d_current_quarter2", "d_current_year2")) AS "t46"
+                                                WHERE "$cor10"."ws_sold_date_sk" = "t46"."d_date_sk2") AS "$cor9",
+                                            LATERAL (SELECT *
+                                                FROM "customer_address" AS "customer_address2" ("ca_address_sk2", "ca_address_id2", "ca_street_number2", "ca_street_name2", "ca_street_type2", "ca_suite_number2", "ca_city2", "ca_county2", "ca_state2", "ca_zip2", "ca_country2", "ca_gmt_offset2", "ca_location_type2")
+                                                WHERE CAST("ca_state2" AS CHAR(2)) IN ('KS', 'ND')) AS "t49"
+                                        WHERE "$cor9"."ws_bill_addr_sk" = "t49"."ca_address_sk2") AS "$cor8",
+                                    LATERAL (SELECT *
+                                        FROM "item" AS "item2" ("i_item_sk2", "i_item_id2", "i_rec_start_date2", "i_rec_end_date2", "i_item_desc2", "i_current_price2", "i_wholesale_cost2", "i_brand_id2", "i_brand2", "i_class_id2", "i_class2", "i_category_id2", "i_category2", "i_manufact_id2", "i_manufact2", "i_size2", "i_formulation2", "i_color2", "i_units2", "i_container2", "i_manager_id2", "i_product_name2")
+                                        WHERE ("i_color2" = 'mint' OR "i_color2" = 'thistle') AND ("i_manager_id2" >= 13 AND "i_manager_id2" <= 32)) AS "t52"
+                                WHERE "$cor8"."ws_item_sk" = "t52"."i_item_sk2"
+                                GROUP BY "$cor8"."d_year2", "$cor8"."d_qoy2", "$cor8"."ca_county2") AS "t57"
+                        WHERE "t57"."d_qoy2" = 1 AND "t57"."d_year2" = 1998) AS "t59"
+                WHERE "$cor2"."ca_county" = "t59"."ca_county2") AS "$cor1",
+            LATERAL (SELECT *
+                FROM (SELECT "$cor8"."ca_county3", "$cor8"."d_qoy3", "$cor8"."d_year3", CASE WHEN COUNT("$cor8"."ws_ext_sales_price0") = 0 THEN NULL ELSE COALESCE(SUM("$cor8"."ws_ext_sales_price0"), 0) END AS "web_sales0"
+                        FROM (SELECT *
+                                FROM (SELECT *
+                                        FROM (SELECT *
+                                                FROM "web_sales" AS "web_sales0" ("ws_sold_date_sk0", "ws_sold_time_sk0", "ws_ship_date_sk0", "ws_item_sk0", "ws_bill_customer_sk0", "ws_bill_cdemo_sk0", "ws_bill_hdemo_sk0", "ws_bill_addr_sk0", "ws_ship_customer_sk0", "ws_ship_cdemo_sk0", "ws_ship_hdemo_sk0", "ws_ship_addr_sk0", "ws_web_page_sk0", "ws_web_site_sk0", "ws_ship_mode_sk0", "ws_warehouse_sk0", "ws_promo_sk0", "ws_order_number0", "ws_quantity0", "ws_wholesale_cost0", "ws_list_price0", "ws_sales_price0", "ws_ext_discount_amt0", "ws_ext_sales_price0", "ws_ext_wholesale_cost0", "ws_ext_list_price0", "ws_ext_tax0", "ws_coupon_amt0", "ws_ext_ship_cost0", "ws_net_paid0", "ws_net_paid_inc_tax0", "ws_net_paid_inc_ship0", "ws_net_paid_inc_ship_tax0", "ws_net_profit0")
+                                                WHERE "ws_list_price0" >= 107 AND "ws_list_price0" <= 121) AS "$cor10",
+                                            LATERAL (SELECT *
+                                                FROM "date_dim" AS "date_dim3" ("d_date_sk3", "d_date_id3", "d_date3", "d_month_seq3", "d_week_seq3", "d_quarter_seq3", "d_year3", "d_dow3", "d_moy3", "d_dom3", "d_qoy3", "d_fy_year3", "d_fy_quarter_seq3", "d_fy_week_seq3", "d_day_name3", "d_quarter_name3", "d_holiday3", "d_weekend3", "d_following_holiday3", "d_first_dom3", "d_last_dom3", "d_same_day_ly3", "d_same_day_lq3", "d_current_day3", "d_current_week3", "d_current_month3", "d_current_quarter3", "d_current_year3")) AS "t62"
+                                        WHERE "$cor10"."ws_sold_date_sk0" = "t62"."d_date_sk3") AS "$cor9",
+                                    LATERAL (SELECT *
+                                        FROM "customer_address" AS "customer_address3" ("ca_address_sk3", "ca_address_id3", "ca_street_number3", "ca_street_name3", "ca_street_type3", "ca_suite_number3", "ca_city3", "ca_county3", "ca_state3", "ca_zip3", "ca_country3", "ca_gmt_offset3", "ca_location_type3")
+                                        WHERE CAST("ca_state3" AS CHAR(2)) IN ('KS', 'ND')) AS "t65"
+                                WHERE "$cor9"."ws_bill_addr_sk0" = "t65"."ca_address_sk3") AS "$cor8",
+                            LATERAL (SELECT *
+                                FROM "item" AS "item3" ("i_item_sk3", "i_item_id3", "i_rec_start_date3", "i_rec_end_date3", "i_item_desc3", "i_current_price3", "i_wholesale_cost3", "i_brand_id3", "i_brand3", "i_class_id3", "i_class3", "i_category_id3", "i_category3", "i_manufact_id3", "i_manufact3", "i_size3", "i_formulation3", "i_color3", "i_units3", "i_container3", "i_manager_id3", "i_product_name3")
+                                WHERE ("i_color3" = 'mint' OR "i_color3" = 'thistle') AND ("i_manager_id3" >= 13 AND "i_manager_id3" <= 32)) AS "t68"
+                        WHERE "$cor8"."ws_item_sk0" = "t68"."i_item_sk3"
+                        GROUP BY "$cor8"."d_year3", "$cor8"."d_qoy3", "$cor8"."ca_county3") AS "t73"
+                WHERE "t73"."d_qoy3" = 2 AND "t73"."d_year3" = 1998) AS "t75"
+        WHERE "$cor1"."ca_county2" = "t75"."ca_county3" AND CASE WHEN "$cor1"."web_sales" > 0 THEN "t75"."web_sales0" / "$cor1"."web_sales" ELSE NULL END > CASE WHEN "$cor1"."store_sales" > 0 THEN "$cor1"."store_sales0" / "$cor1"."store_sales" ELSE NULL END) AS "$cor0",
+    LATERAL (SELECT *
+        FROM (SELECT "$cor8"."ca_county4", "$cor8"."d_qoy4", "$cor8"."d_year4", CASE WHEN COUNT("$cor8"."ws_ext_sales_price1") = 0 THEN NULL ELSE COALESCE(SUM("$cor8"."ws_ext_sales_price1"), 0) END AS "web_sales1"
+                FROM (SELECT *
+                        FROM (SELECT *
+                                FROM (SELECT *
+                                        FROM "web_sales" AS "web_sales1" ("ws_sold_date_sk1", "ws_sold_time_sk1", "ws_ship_date_sk1", "ws_item_sk1", "ws_bill_customer_sk1", "ws_bill_cdemo_sk1", "ws_bill_hdemo_sk1", "ws_bill_addr_sk1", "ws_ship_customer_sk1", "ws_ship_cdemo_sk1", "ws_ship_hdemo_sk1", "ws_ship_addr_sk1", "ws_web_page_sk1", "ws_web_site_sk1", "ws_ship_mode_sk1", "ws_warehouse_sk1", "ws_promo_sk1", "ws_order_number1", "ws_quantity1", "ws_wholesale_cost1", "ws_list_price1", "ws_sales_price1", "ws_ext_discount_amt1", "ws_ext_sales_price1", "ws_ext_wholesale_cost1", "ws_ext_list_price1", "ws_ext_tax1", "ws_coupon_amt1", "ws_ext_ship_cost1", "ws_net_paid1", "ws_net_paid_inc_tax1", "ws_net_paid_inc_ship1", "ws_net_paid_inc_ship_tax1", "ws_net_profit1")
+                                        WHERE "ws_list_price1" >= 107 AND "ws_list_price1" <= 121) AS "$cor10",
+                                    LATERAL (SELECT *
+                                        FROM "date_dim" AS "date_dim4" ("d_date_sk4", "d_date_id4", "d_date4", "d_month_seq4", "d_week_seq4", "d_quarter_seq4", "d_year4", "d_dow4", "d_moy4", "d_dom4", "d_qoy4", "d_fy_year4", "d_fy_quarter_seq4", "d_fy_week_seq4", "d_day_name4", "d_quarter_name4", "d_holiday4", "d_weekend4", "d_following_holiday4", "d_first_dom4", "d_last_dom4", "d_same_day_ly4", "d_same_day_lq4", "d_current_day4", "d_current_week4", "d_current_month4", "d_current_quarter4", "d_current_year4")) AS "t78"
+                                WHERE "$cor10"."ws_sold_date_sk1" = "t78"."d_date_sk4") AS "$cor9",
+                            LATERAL (SELECT *
+                                FROM "customer_address" AS "customer_address4" ("ca_address_sk4", "ca_address_id4", "ca_street_number4", "ca_street_name4", "ca_street_type4", "ca_suite_number4", "ca_city4", "ca_county4", "ca_state4", "ca_zip4", "ca_country4", "ca_gmt_offset4", "ca_location_type4")
+                                WHERE CAST("ca_state4" AS CHAR(2)) IN ('KS', 'ND')) AS "t81"
+                        WHERE "$cor9"."ws_bill_addr_sk1" = "t81"."ca_address_sk4") AS "$cor8",
+                    LATERAL (SELECT *
+                        FROM "item" AS "item4" ("i_item_sk4", "i_item_id4", "i_rec_start_date4", "i_rec_end_date4", "i_item_desc4", "i_current_price4", "i_wholesale_cost4", "i_brand_id4", "i_brand4", "i_class_id4", "i_class4", "i_category_id4", "i_category4", "i_manufact_id4", "i_manufact4", "i_size4", "i_formulation4", "i_color4", "i_units4", "i_container4", "i_manager_id4", "i_product_name4")
+                        WHERE ("i_color4" = 'mint' OR "i_color4" = 'thistle') AND ("i_manager_id4" >= 13 AND "i_manager_id4" <= 32)) AS "t84"
+                WHERE "$cor8"."ws_item_sk1" = "t84"."i_item_sk4"
+                GROUP BY "$cor8"."d_year4", "$cor8"."d_qoy4", "$cor8"."ca_county4") AS "t89"
+        WHERE "t89"."d_qoy4" = 3 AND "t89"."d_year4" = 1998) AS "t91"
+WHERE "$cor0"."ca_county2" = "t91"."ca_county4" AND CASE WHEN "$cor0"."web_sales0" > 0 THEN "t91"."web_sales1" / "$cor0"."web_sales0" ELSE NULL END > CASE WHEN "$cor0"."store_sales0" > 0 THEN "$cor0"."store_sales00" / "$cor0"."store_sales0" ELSE NULL END
+ORDER BY 5;
+[AmbiguousColumn('column reference "store_sales" is ambiguous\nLINE 109: ..." / "$cor1"."web_sales" ELSE NULL END > CASE WHEN "$cor1"."s...\n                                                               ^\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n')]
+07:08:45,683 root ERROR Failed to execute pgsql_actual_time SELECT "$cor0"."ca_county", CAST(1998 AS INTEGER) AS "d_year5", "$cor0"."web_sales0" / "$cor0"."web_sales" AS "web_q1_q2_increase", "$cor0"."store_sales0" / "$cor0"."store_sales" AS "store_q1_q2_increase", "t91"."web_sales1" / "$cor0"."web_sales0" AS "web_q2_q3_increase", "$cor0"."store_sales00" / "$cor0"."store_sales0" AS "store_q2_q3_increase"
+FROM (SELECT *
+        FROM (SELECT *
+                FROM (SELECT *
+                        FROM (SELECT *
+                                FROM (SELECT *
+                                        FROM (SELECT "$cor5"."ca_county", "$cor5"."d_qoy", "$cor5"."d_year", CASE WHEN COUNT("$cor5"."ss_ext_sales_price") = 0 THEN NULL ELSE COALESCE(SUM("$cor5"."ss_ext_sales_price"), 0) END AS "store_sales"
+                                                FROM (SELECT *
+                                                        FROM (SELECT *
+                                                                FROM (SELECT *
+                                                                        FROM "store_sales"
+                                                                        WHERE "ss_list_price" >= 107 AND "ss_list_price" <= 121) AS "$cor7",
+                                                                    LATERAL (SELECT *
+                                                                        FROM "date_dim") AS "t0"
+                                                                WHERE "$cor7"."ss_sold_date_sk" = "t0"."d_date_sk") AS "$cor6",
+                                                            LATERAL (SELECT *
+                                                                FROM "customer_address"
+                                                                WHERE CAST("ca_state" AS CHAR(2)) IN ('KS', 'ND')) AS "t3"
+                                                        WHERE "$cor6"."ss_addr_sk" = "t3"."ca_address_sk") AS "$cor5",
+                                                    LATERAL (SELECT *
+                                                        FROM "item"
+                                                        WHERE ("i_color" = 'mint' OR "i_color" = 'thistle') AND ("i_manager_id" >= 13 AND "i_manager_id" <= 32)) AS "t6"
+                                                WHERE "$cor5"."ss_item_sk" = "t6"."i_item_sk"
+                                                GROUP BY "$cor5"."d_year", "$cor5"."d_qoy", "$cor5"."ca_county") AS "t11"
+                                        WHERE "t11"."d_qoy" = 1 AND "t11"."d_year" = 1998) AS "$cor4",
+                                    LATERAL (SELECT *
+                                        FROM (SELECT "$cor5"."ca_county0", "$cor5"."d_qoy0", "$cor5"."d_year0", CASE WHEN COUNT("$cor5"."ss_ext_sales_price0") = 0 THEN NULL ELSE COALESCE(SUM("$cor5"."ss_ext_sales_price0"), 0) END AS "store_sales"
+                                                FROM (SELECT *
+                                                        FROM (SELECT *
+                                                                FROM (SELECT *
+                                                                        FROM "store_sales" AS "store_sales0" ("ss_sold_date_sk0", "ss_sold_time_sk0", "ss_item_sk0", "ss_customer_sk0", "ss_cdemo_sk0", "ss_hdemo_sk0", "ss_addr_sk0", "ss_store_sk0", "ss_promo_sk0", "ss_ticket_number0", "ss_quantity0", "ss_wholesale_cost0", "ss_list_price0", "ss_sales_price0", "ss_ext_discount_amt0", "ss_ext_sales_price0", "ss_ext_wholesale_cost0", "ss_ext_list_price0", "ss_ext_tax0", "ss_coupon_amt0", "ss_net_paid0", "ss_net_paid_inc_tax0", "ss_net_profit0")
+                                                                        WHERE "ss_list_price0" >= 107 AND "ss_list_price0" <= 121) AS "$cor7",
+                                                                    LATERAL (SELECT *
+                                                                        FROM "date_dim" AS "date_dim0" ("d_date_sk0", "d_date_id0", "d_date0", "d_month_seq0", "d_week_seq0", "d_quarter_seq0", "d_year0", "d_dow0", "d_moy0", "d_dom0", "d_qoy0", "d_fy_year0", "d_fy_quarter_seq0", "d_fy_week_seq0", "d_day_name0", "d_quarter_name0", "d_holiday0", "d_weekend0", "d_following_holiday0", "d_first_dom0", "d_last_dom0", "d_same_day_ly0", "d_same_day_lq0", "d_current_day0", "d_current_week0", "d_current_month0", "d_current_quarter0", "d_current_year0")) AS "t14"
+                                                                WHERE "$cor7"."ss_sold_date_sk0" = "t14"."d_date_sk0") AS "$cor6",
+                                                            LATERAL (SELECT *
+                                                                FROM "customer_address" AS "customer_address0" ("ca_address_sk0", "ca_address_id0", "ca_street_number0", "ca_street_name0", "ca_street_type0", "ca_suite_number0", "ca_city0", "ca_county0", "ca_state0", "ca_zip0", "ca_country0", "ca_gmt_offset0", "ca_location_type0")
+                                                                WHERE CAST("ca_state0" AS CHAR(2)) IN ('KS', 'ND')) AS "t17"
+                                                        WHERE "$cor6"."ss_addr_sk0" = "t17"."ca_address_sk0") AS "$cor5",
+                                                    LATERAL (SELECT *
+                                                        FROM "item" AS "item0" ("i_item_sk0", "i_item_id0", "i_rec_start_date0", "i_rec_end_date0", "i_item_desc0", "i_current_price0", "i_wholesale_cost0", "i_brand_id0", "i_brand0", "i_class_id0", "i_class0", "i_category_id0", "i_category0", "i_manufact_id0", "i_manufact0", "i_size0", "i_formulation0", "i_color0", "i_units0", "i_container0", "i_manager_id0", "i_product_name0")
+                                                        WHERE ("i_color0" = 'mint' OR "i_color0" = 'thistle') AND ("i_manager_id0" >= 13 AND "i_manager_id0" <= 32)) AS "t20"
+                                                WHERE "$cor5"."ss_item_sk0" = "t20"."i_item_sk0"
+                                                GROUP BY "$cor5"."d_year0", "$cor5"."d_qoy0", "$cor5"."ca_county0") AS "t25"
+                                        WHERE "t25"."d_qoy0" = 2 AND "t25"."d_year0" = 1998) AS "t27"
+                                WHERE "$cor4"."ca_county" = "t27"."ca_county0") AS "$cor3",
+                            LATERAL (SELECT *
+                                FROM (SELECT "$cor5"."ca_county1", "$cor5"."d_qoy1", "$cor5"."d_year1", CASE WHEN COUNT("$cor5"."ss_ext_sales_price1") = 0 THEN NULL ELSE COALESCE(SUM("$cor5"."ss_ext_sales_price1"), 0) END AS "store_sales0"
+                                        FROM (SELECT *
+                                                FROM (SELECT *
+                                                        FROM (SELECT *
+                                                                FROM "store_sales" AS "store_sales1" ("ss_sold_date_sk1", "ss_sold_time_sk1", "ss_item_sk1", "ss_customer_sk1", "ss_cdemo_sk1", "ss_hdemo_sk1", "ss_addr_sk1", "ss_store_sk1", "ss_promo_sk1", "ss_ticket_number1", "ss_quantity1", "ss_wholesale_cost1", "ss_list_price1", "ss_sales_price1", "ss_ext_discount_amt1", "ss_ext_sales_price1", "ss_ext_wholesale_cost1", "ss_ext_list_price1", "ss_ext_tax1", "ss_coupon_amt1", "ss_net_paid1", "ss_net_paid_inc_tax1", "ss_net_profit1")
+                                                                WHERE "ss_list_price1" >= 107 AND "ss_list_price1" <= 121) AS "$cor7",
+                                                            LATERAL (SELECT *
+                                                                FROM "date_dim" AS "date_dim1" ("d_date_sk1", "d_date_id1", "d_date1", "d_month_seq1", "d_week_seq1", "d_quarter_seq1", "d_year1", "d_dow1", "d_moy1", "d_dom1", "d_qoy1", "d_fy_year1", "d_fy_quarter_seq1", "d_fy_week_seq1", "d_day_name1", "d_quarter_name1", "d_holiday1", "d_weekend1", "d_following_holiday1", "d_first_dom1", "d_last_dom1", "d_same_day_ly1", "d_same_day_lq1", "d_current_day1", "d_current_week1", "d_current_month1", "d_current_quarter1", "d_current_year1")) AS "t30"
+                                                        WHERE "$cor7"."ss_sold_date_sk1" = "t30"."d_date_sk1") AS "$cor6",
+                                                    LATERAL (SELECT *
+                                                        FROM "customer_address" AS "customer_address1" ("ca_address_sk1", "ca_address_id1", "ca_street_number1", "ca_street_name1", "ca_street_type1", "ca_suite_number1", "ca_city1", "ca_county1", "ca_state1", "ca_zip1", "ca_country1", "ca_gmt_offset1", "ca_location_type1")
+                                                        WHERE CAST("ca_state1" AS CHAR(2)) IN ('KS', 'ND')) AS "t33"
+                                                WHERE "$cor6"."ss_addr_sk1" = "t33"."ca_address_sk1") AS "$cor5",
+                                            LATERAL (SELECT *
+                                                FROM "item" AS "item1" ("i_item_sk1", "i_item_id1", "i_rec_start_date1", "i_rec_end_date1", "i_item_desc1", "i_current_price1", "i_wholesale_cost1", "i_brand_id1", "i_brand1", "i_class_id1", "i_class1", "i_category_id1", "i_category1", "i_manufact_id1", "i_manufact1", "i_size1", "i_formulation1", "i_color1", "i_units1", "i_container1", "i_manager_id1", "i_product_name1")
+                                                WHERE ("i_color1" = 'mint' OR "i_color1" = 'thistle') AND ("i_manager_id1" >= 13 AND "i_manager_id1" <= 32)) AS "t36"
+                                        WHERE "$cor5"."ss_item_sk1" = "t36"."i_item_sk1"
+                                        GROUP BY "$cor5"."d_year1", "$cor5"."d_qoy1", "$cor5"."ca_county1") AS "t41"
+                                WHERE "t41"."d_qoy1" = 3 AND "t41"."d_year1" = 1998) AS "t43"
+                        WHERE "$cor3"."ca_county0" = "t43"."ca_county1") AS "$cor2",
+                    LATERAL (SELECT *
+                        FROM (SELECT "$cor8"."ca_county2", "$cor8"."d_qoy2", "$cor8"."d_year2", CASE WHEN COUNT("$cor8"."ws_ext_sales_price") = 0 THEN NULL ELSE COALESCE(SUM("$cor8"."ws_ext_sales_price"), 0) END AS "web_sales"
+                                FROM (SELECT *
+                                        FROM (SELECT *
+                                                FROM (SELECT *
+                                                        FROM "web_sales"
+                                                        WHERE "ws_list_price" >= 107 AND "ws_list_price" <= 121) AS "$cor10",
+                                                    LATERAL (SELECT *
+                                                        FROM "date_dim" AS "date_dim2" ("d_date_sk2", "d_date_id2", "d_date2", "d_month_seq2", "d_week_seq2", "d_quarter_seq2", "d_year2", "d_dow2", "d_moy2", "d_dom2", "d_qoy2", "d_fy_year2", "d_fy_quarter_seq2", "d_fy_week_seq2", "d_day_name2", "d_quarter_name2", "d_holiday2", "d_weekend2", "d_following_holiday2", "d_first_dom2", "d_last_dom2", "d_same_day_ly2", "d_same_day_lq2", "d_current_day2", "d_current_week2", "d_current_month2", "d_current_quarter2", "d_current_year2")) AS "t46"
+                                                WHERE "$cor10"."ws_sold_date_sk" = "t46"."d_date_sk2") AS "$cor9",
+                                            LATERAL (SELECT *
+                                                FROM "customer_address" AS "customer_address2" ("ca_address_sk2", "ca_address_id2", "ca_street_number2", "ca_street_name2", "ca_street_type2", "ca_suite_number2", "ca_city2", "ca_county2", "ca_state2", "ca_zip2", "ca_country2", "ca_gmt_offset2", "ca_location_type2")
+                                                WHERE CAST("ca_state2" AS CHAR(2)) IN ('KS', 'ND')) AS "t49"
+                                        WHERE "$cor9"."ws_bill_addr_sk" = "t49"."ca_address_sk2") AS "$cor8",
+                                    LATERAL (SELECT *
+                                        FROM "item" AS "item2" ("i_item_sk2", "i_item_id2", "i_rec_start_date2", "i_rec_end_date2", "i_item_desc2", "i_current_price2", "i_wholesale_cost2", "i_brand_id2", "i_brand2", "i_class_id2", "i_class2", "i_category_id2", "i_category2", "i_manufact_id2", "i_manufact2", "i_size2", "i_formulation2", "i_color2", "i_units2", "i_container2", "i_manager_id2", "i_product_name2")
+                                        WHERE ("i_color2" = 'mint' OR "i_color2" = 'thistle') AND ("i_manager_id2" >= 13 AND "i_manager_id2" <= 32)) AS "t52"
+                                WHERE "$cor8"."ws_item_sk" = "t52"."i_item_sk2"
+                                GROUP BY "$cor8"."d_year2", "$cor8"."d_qoy2", "$cor8"."ca_county2") AS "t57"
+                        WHERE "t57"."d_qoy2" = 1 AND "t57"."d_year2" = 1998) AS "t59"
+                WHERE "$cor2"."ca_county" = "t59"."ca_county2") AS "$cor1",
+            LATERAL (SELECT *
+                FROM (SELECT "$cor8"."ca_county3", "$cor8"."d_qoy3", "$cor8"."d_year3", CASE WHEN COUNT("$cor8"."ws_ext_sales_price0") = 0 THEN NULL ELSE COALESCE(SUM("$cor8"."ws_ext_sales_price0"), 0) END AS "web_sales0"
+                        FROM (SELECT *
+                                FROM (SELECT *
+                                        FROM (SELECT *
+                                                FROM "web_sales" AS "web_sales0" ("ws_sold_date_sk0", "ws_sold_time_sk0", "ws_ship_date_sk0", "ws_item_sk0", "ws_bill_customer_sk0", "ws_bill_cdemo_sk0", "ws_bill_hdemo_sk0", "ws_bill_addr_sk0", "ws_ship_customer_sk0", "ws_ship_cdemo_sk0", "ws_ship_hdemo_sk0", "ws_ship_addr_sk0", "ws_web_page_sk0", "ws_web_site_sk0", "ws_ship_mode_sk0", "ws_warehouse_sk0", "ws_promo_sk0", "ws_order_number0", "ws_quantity0", "ws_wholesale_cost0", "ws_list_price0", "ws_sales_price0", "ws_ext_discount_amt0", "ws_ext_sales_price0", "ws_ext_wholesale_cost0", "ws_ext_list_price0", "ws_ext_tax0", "ws_coupon_amt0", "ws_ext_ship_cost0", "ws_net_paid0", "ws_net_paid_inc_tax0", "ws_net_paid_inc_ship0", "ws_net_paid_inc_ship_tax0", "ws_net_profit0")
+                                                WHERE "ws_list_price0" >= 107 AND "ws_list_price0" <= 121) AS "$cor10",
+                                            LATERAL (SELECT *
+                                                FROM "date_dim" AS "date_dim3" ("d_date_sk3", "d_date_id3", "d_date3", "d_month_seq3", "d_week_seq3", "d_quarter_seq3", "d_year3", "d_dow3", "d_moy3", "d_dom3", "d_qoy3", "d_fy_year3", "d_fy_quarter_seq3", "d_fy_week_seq3", "d_day_name3", "d_quarter_name3", "d_holiday3", "d_weekend3", "d_following_holiday3", "d_first_dom3", "d_last_dom3", "d_same_day_ly3", "d_same_day_lq3", "d_current_day3", "d_current_week3", "d_current_month3", "d_current_quarter3", "d_current_year3")) AS "t62"
+                                        WHERE "$cor10"."ws_sold_date_sk0" = "t62"."d_date_sk3") AS "$cor9",
+                                    LATERAL (SELECT *
+                                        FROM "customer_address" AS "customer_address3" ("ca_address_sk3", "ca_address_id3", "ca_street_number3", "ca_street_name3", "ca_street_type3", "ca_suite_number3", "ca_city3", "ca_county3", "ca_state3", "ca_zip3", "ca_country3", "ca_gmt_offset3", "ca_location_type3")
+                                        WHERE CAST("ca_state3" AS CHAR(2)) IN ('KS', 'ND')) AS "t65"
+                                WHERE "$cor9"."ws_bill_addr_sk0" = "t65"."ca_address_sk3") AS "$cor8",
+                            LATERAL (SELECT *
+                                FROM "item" AS "item3" ("i_item_sk3", "i_item_id3", "i_rec_start_date3", "i_rec_end_date3", "i_item_desc3", "i_current_price3", "i_wholesale_cost3", "i_brand_id3", "i_brand3", "i_class_id3", "i_class3", "i_category_id3", "i_category3", "i_manufact_id3", "i_manufact3", "i_size3", "i_formulation3", "i_color3", "i_units3", "i_container3", "i_manager_id3", "i_product_name3")
+                                WHERE ("i_color3" = 'mint' OR "i_color3" = 'thistle') AND ("i_manager_id3" >= 13 AND "i_manager_id3" <= 32)) AS "t68"
+                        WHERE "$cor8"."ws_item_sk0" = "t68"."i_item_sk3"
+                        GROUP BY "$cor8"."d_year3", "$cor8"."d_qoy3", "$cor8"."ca_county3") AS "t73"
+                WHERE "t73"."d_qoy3" = 2 AND "t73"."d_year3" = 1998) AS "t75"
+        WHERE "$cor1"."ca_county2" = "t75"."ca_county3" AND CASE WHEN "$cor1"."web_sales" > 0 THEN "t75"."web_sales0" / "$cor1"."web_sales" ELSE NULL END > CASE WHEN "$cor1"."store_sales" > 0 THEN "$cor1"."store_sales0" / "$cor1"."store_sales" ELSE NULL END) AS "$cor0",
+    LATERAL (SELECT *
+        FROM (SELECT "$cor8"."ca_county4", "$cor8"."d_qoy4", "$cor8"."d_year4", CASE WHEN COUNT("$cor8"."ws_ext_sales_price1") = 0 THEN NULL ELSE COALESCE(SUM("$cor8"."ws_ext_sales_price1"), 0) END AS "web_sales1"
+                FROM (SELECT *
+                        FROM (SELECT *
+                                FROM (SELECT *
+                                        FROM "web_sales" AS "web_sales1" ("ws_sold_date_sk1", "ws_sold_time_sk1", "ws_ship_date_sk1", "ws_item_sk1", "ws_bill_customer_sk1", "ws_bill_cdemo_sk1", "ws_bill_hdemo_sk1", "ws_bill_addr_sk1", "ws_ship_customer_sk1", "ws_ship_cdemo_sk1", "ws_ship_hdemo_sk1", "ws_ship_addr_sk1", "ws_web_page_sk1", "ws_web_site_sk1", "ws_ship_mode_sk1", "ws_warehouse_sk1", "ws_promo_sk1", "ws_order_number1", "ws_quantity1", "ws_wholesale_cost1", "ws_list_price1", "ws_sales_price1", "ws_ext_discount_amt1", "ws_ext_sales_price1", "ws_ext_wholesale_cost1", "ws_ext_list_price1", "ws_ext_tax1", "ws_coupon_amt1", "ws_ext_ship_cost1", "ws_net_paid1", "ws_net_paid_inc_tax1", "ws_net_paid_inc_ship1", "ws_net_paid_inc_ship_tax1", "ws_net_profit1")
+                                        WHERE "ws_list_price1" >= 107 AND "ws_list_price1" <= 121) AS "$cor10",
+                                    LATERAL (SELECT *
+                                        FROM "date_dim" AS "date_dim4" ("d_date_sk4", "d_date_id4", "d_date4", "d_month_seq4", "d_week_seq4", "d_quarter_seq4", "d_year4", "d_dow4", "d_moy4", "d_dom4", "d_qoy4", "d_fy_year4", "d_fy_quarter_seq4", "d_fy_week_seq4", "d_day_name4", "d_quarter_name4", "d_holiday4", "d_weekend4", "d_following_holiday4", "d_first_dom4", "d_last_dom4", "d_same_day_ly4", "d_same_day_lq4", "d_current_day4", "d_current_week4", "d_current_month4", "d_current_quarter4", "d_current_year4")) AS "t78"
+                                WHERE "$cor10"."ws_sold_date_sk1" = "t78"."d_date_sk4") AS "$cor9",
+                            LATERAL (SELECT *
+                                FROM "customer_address" AS "customer_address4" ("ca_address_sk4", "ca_address_id4", "ca_street_number4", "ca_street_name4", "ca_street_type4", "ca_suite_number4", "ca_city4", "ca_county4", "ca_state4", "ca_zip4", "ca_country4", "ca_gmt_offset4", "ca_location_type4")
+                                WHERE CAST("ca_state4" AS CHAR(2)) IN ('KS', 'ND')) AS "t81"
+                        WHERE "$cor9"."ws_bill_addr_sk1" = "t81"."ca_address_sk4") AS "$cor8",
+                    LATERAL (SELECT *
+                        FROM "item" AS "item4" ("i_item_sk4", "i_item_id4", "i_rec_start_date4", "i_rec_end_date4", "i_item_desc4", "i_current_price4", "i_wholesale_cost4", "i_brand_id4", "i_brand4", "i_class_id4", "i_class4", "i_category_id4", "i_category4", "i_manufact_id4", "i_manufact4", "i_size4", "i_formulation4", "i_color4", "i_units4", "i_container4", "i_manager_id4", "i_product_name4")
+                        WHERE ("i_color4" = 'mint' OR "i_color4" = 'thistle') AND ("i_manager_id4" >= 13 AND "i_manager_id4" <= 32)) AS "t84"
+                WHERE "$cor8"."ws_item_sk1" = "t84"."i_item_sk4"
+                GROUP BY "$cor8"."d_year4", "$cor8"."d_qoy4", "$cor8"."ca_county4") AS "t89"
+        WHERE "t89"."d_qoy4" = 3 AND "t89"."d_year4" = 1998) AS "t91"
+WHERE "$cor0"."ca_county2" = "t91"."ca_county4" AND CASE WHEN "$cor0"."web_sales0" > 0 THEN "t91"."web_sales1" / "$cor0"."web_sales0" ELSE NULL END > CASE WHEN "$cor0"."store_sales0" > 0 THEN "$cor0"."store_sales00" / "$cor0"."store_sales0" ELSE NULL END
+ORDER BY 5;
+[AmbiguousColumn('column reference "store_sales" is ambiguous\nLINE 109: ..." / "$cor1"."web_sales" ELSE NULL END > CASE WHEN "$cor1"."s...\n                                                               ^\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n')]
+07:44:06,790 root ERROR Failed to execute pgsql_cost_estimation SELECT "i_item_desc0", "w_warehouse_name0", "d_week_seq0", SUM(CASE WHEN "p_promo_sk" IS NULL THEN 1 ELSE 0 END) AS "no_promo", SUM(CASE WHEN "p_promo_sk" IS NOT NULL THEN 1 ELSE 0 END) AS "promo", COUNT(*) AS "total_cnt"
+FROM (SELECT "t12"."cs_quantity", "t12"."cs_wholesale_cost", "t12"."inv_quantity_on_hand0", "t12"."w_warehouse_name0", "t12"."i_item_desc0", "t12"."i_category0", "t12"."cd_marital_status0", "t12"."cd_dep_count0", "t12"."hd_buy_potential0", "t12"."d_date0", "t12"."d_week_seq0", "t12"."d_year0", "t12"."d_week_seq2", "t12"."d_date4", "promotion"."p_promo_sk"
+        FROM (SELECT *
+                FROM (SELECT *
+                        FROM (SELECT *
+                                FROM (SELECT *
+                                        FROM (SELECT *
+                                                FROM (SELECT *
+                                                        FROM (SELECT *
+                                                                FROM (SELECT *
+                                                                        FROM (SELECT *
+                                                                                FROM (SELECT *
+                                                                                        FROM (SELECT *
+                                                                                                FROM (SELECT *
+                                                                                                        FROM (SELECT *
+                                                                                                                FROM "catalog_sales"
+                                                                                                                WHERE EXISTS (SELECT 1
+                                                                                                                        FROM "inventory"
+                                                                                                                        WHERE "cs_item_sk" = "inventory"."inv_item_sk")) AS "t"
+                                                                                                            CROSS JOIN "inventory" AS "inventory0" ("inv_date_sk0", "inv_item_sk0", "inv_warehouse_sk0", "inv_quantity_on_hand0")
+                                                                                                        WHERE "t"."cs_item_sk" = "inventory0"."inv_item_sk0" AND EXISTS (SELECT 1
+                                                                                                                FROM "warehouse"
+                                                                                                                WHERE "t0"."inv_warehouse_sk0" = "warehouse"."w_warehouse_sk")) AS "t00"
+                                                                                                    CROSS JOIN "warehouse" AS "warehouse0" ("w_warehouse_sk0", "w_warehouse_id0", "w_warehouse_name0", "w_warehouse_sq_ft0", "w_street_number0", "w_street_name0", "w_street_type0", "w_suite_number0", "w_city0", "w_county0", "w_state0", "w_zip0", "w_country0", "w_gmt_offset0")
+                                                                                                WHERE "warehouse0"."w_warehouse_sk0" = "t00"."inv_warehouse_sk0" AND EXISTS (SELECT 1
+                                                                                                        FROM "item"
+                                                                                                        WHERE "t1"."cs_item_sk" = "item"."i_item_sk")) AS "t10"
+                                                                                            CROSS JOIN "item" AS "item0" ("i_item_sk0", "i_item_id0", "i_rec_start_date0", "i_rec_end_date0", "i_item_desc0", "i_current_price0", "i_wholesale_cost0", "i_brand_id0", "i_brand0", "i_class_id0", "i_class0", "i_category_id0", "i_category0", "i_manufact_id0", "i_manufact0", "i_size0", "i_formulation0", "i_color0", "i_units0", "i_container0", "i_manager_id0", "i_product_name0")
+                                                                                        WHERE "item0"."i_item_sk0" = "t10"."cs_item_sk" AND EXISTS (SELECT 1
+                                                                                                FROM "customer_demographics"
+                                                                                                WHERE "t2"."cs_bill_cdemo_sk" = "customer_demographics"."cd_demo_sk")) AS "t2"
+                                                                                WHERE "cs_bill_cdemo_sk" IS NOT NULL) AS "t3",
+                                                                            "customer_demographics" AS "customer_demographics0" ("cd_demo_sk0", "cd_gender0", "cd_marital_status0", "cd_education_status0", "cd_purchase_estimate0", "cd_credit_rating0", "cd_dep_count0", "cd_dep_employed_count0", "cd_dep_college_count0")
+                                                                        WHERE "t3"."cs_bill_cdemo_sk" = "customer_demographics0"."cd_demo_sk0" AND EXISTS (SELECT 1
+                                                                                FROM "household_demographics"
+                                                                                WHERE "t4"."cs_bill_hdemo_sk" = "household_demographics"."hd_demo_sk")) AS "t4"
+                                                                WHERE "cs_bill_hdemo_sk" IS NOT NULL) AS "t5",
+                                                            "household_demographics" AS "household_demographics0" ("hd_demo_sk0", "hd_income_band_sk0", "hd_buy_potential0", "hd_dep_count0", "hd_vehicle_count0")
+                                                        WHERE "t5"."cs_bill_hdemo_sk" = "household_demographics0"."hd_demo_sk0" AND EXISTS (SELECT 1
+                                                                FROM "date_dim"
+                                                                WHERE "t6"."cs_sold_date_sk" = "date_dim"."d_date_sk")) AS "t6"
+                                                WHERE "cs_sold_date_sk" IS NOT NULL) AS "t7",
+                                            "date_dim" AS "date_dim0" ("d_date_sk0", "d_date_id0", "d_date0", "d_month_seq0", "d_week_seq0", "d_quarter_seq0", "d_year0", "d_dow0", "d_moy0", "d_dom0", "d_qoy0", "d_fy_year0", "d_fy_quarter_seq0", "d_fy_week_seq0", "d_day_name0", "d_quarter_name0", "d_holiday0", "d_weekend0", "d_following_holiday0", "d_first_dom0", "d_last_dom0", "d_same_day_ly0", "d_same_day_lq0", "d_current_day0", "d_current_week0", "d_current_month0", "d_current_quarter0", "d_current_year0")
+                                        WHERE "t7"."cs_sold_date_sk" = "date_dim0"."d_date_sk0" AND EXISTS (SELECT 1
+                                                FROM "date_dim" AS "date_dim1" ("d_date_sk1", "d_date_id1", "d_date1", "d_month_seq1", "d_week_seq1", "d_quarter_seq1", "d_year1", "d_dow1", "d_moy1", "d_dom1", "d_qoy1", "d_fy_year1", "d_fy_quarter_seq1", "d_fy_week_seq1", "d_day_name1", "d_quarter_name1", "d_holiday1", "d_weekend1", "d_following_holiday1", "d_first_dom1", "d_last_dom1", "d_same_day_ly1", "d_same_day_lq1", "d_current_day1", "d_current_week1", "d_current_month1", "d_current_quarter1", "d_current_year1")
+                                                WHERE "t8"."inv_date_sk0" = "date_dim1"."d_date_sk1")) AS "t80"
+                                    CROSS JOIN "date_dim" AS "date_dim2" ("d_date_sk2", "d_date_id2", "d_date2", "d_month_seq2", "d_week_seq2", "d_quarter_seq2", "d_year2", "d_dow2", "d_moy2", "d_dom2", "d_qoy2", "d_fy_year2", "d_fy_quarter_seq2", "d_fy_week_seq2", "d_day_name2", "d_quarter_name2", "d_holiday2", "d_weekend2", "d_following_holiday2", "d_first_dom2", "d_last_dom2", "d_same_day_ly2", "d_same_day_lq2", "d_current_day2", "d_current_week2", "d_current_month2", "d_current_quarter2", "d_current_year2")
+                                WHERE "t80"."inv_date_sk0" = "date_dim2"."d_date_sk2" AND EXISTS (SELECT 1
+                                        FROM "date_dim" AS "date_dim3" ("d_date_sk3", "d_date_id3", "d_date3", "d_month_seq3", "d_week_seq3", "d_quarter_seq3", "d_year3", "d_dow3", "d_moy3", "d_dom3", "d_qoy3", "d_fy_year3", "d_fy_quarter_seq3", "d_fy_week_seq3", "d_day_name3", "d_quarter_name3", "d_holiday3", "d_weekend3", "d_following_holiday3", "d_first_dom3", "d_last_dom3", "d_same_day_ly3", "d_same_day_lq3", "d_current_day3", "d_current_week3", "d_current_month3", "d_current_quarter3", "d_current_year3")
+                                        WHERE "t9"."cs_ship_date_sk" = "date_dim3"."d_date_sk3")) AS "t9"
+                        WHERE "cs_ship_date_sk" IS NOT NULL) AS "t11",
+                    "date_dim" AS "date_dim4" ("d_date_sk4", "d_date_id4", "d_date4", "d_month_seq4", "d_week_seq4", "d_quarter_seq4", "d_year4", "d_dow4", "d_moy4", "d_dom4", "d_qoy4", "d_fy_year4", "d_fy_quarter_seq4", "d_fy_week_seq4", "d_day_name4", "d_quarter_name4", "d_holiday4", "d_weekend4", "d_following_holiday4", "d_first_dom4", "d_last_dom4", "d_same_day_ly4", "d_same_day_lq4", "d_current_day4", "d_current_week4", "d_current_month4", "d_current_quarter4", "d_current_year4")
+                WHERE "t11"."cs_ship_date_sk" = "date_dim4"."d_date_sk4") AS "t12"
+            LEFT JOIN "promotion" ON "t12"."cs_promo_sk" = "promotion"."p_promo_sk"
+            LEFT JOIN "catalog_returns" ON "t12"."cs_item_sk" = "catalog_returns"."cr_item_sk" AND "t12"."cs_order_number" = "catalog_returns"."cr_order_number") AS "t13"
+WHERE "t13"."d_week_seq0" = "t13"."d_week_seq2" AND "t13"."inv_quantity_on_hand0" < "t13"."cs_quantity" AND ("t13"."d_date4" > ("t13"."d_date0" + INTERVAL '3' DAY) AND "t13"."hd_buy_potential0" = '>10000') AND ("t13"."d_year0" = 1998 AND "t13"."cd_marital_status0" = 'D' AND ("t13"."cd_dep_count0" >= 9 AND "t13"."cd_dep_count0" <= 11 AND (("t13"."i_category0" = 'Books' OR "t13"."i_category0" = 'Children' OR "t13"."i_category0" = 'Home') AND ("t13"."cs_wholesale_cost" >= 43 AND "t13"."cs_wholesale_cost" <= 63))))
+GROUP BY "i_item_desc0", "w_warehouse_name0", "d_week_seq0"
+ORDER BY 6 DESC, "i_item_desc0", "w_warehouse_name0", "d_week_seq0"
+FETCH NEXT 100 ROWS ONLY;
+[UndefinedTable('missing FROM-clause entry for table "t0"\nLINE 23: ...                                            WHERE "t0"."inv_...\n                                                              ^\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n')]
+07:44:06,803 root ERROR Failed to execute pgsql_actual_time SELECT "i_item_desc0", "w_warehouse_name0", "d_week_seq0", SUM(CASE WHEN "p_promo_sk" IS NULL THEN 1 ELSE 0 END) AS "no_promo", SUM(CASE WHEN "p_promo_sk" IS NOT NULL THEN 1 ELSE 0 END) AS "promo", COUNT(*) AS "total_cnt"
+FROM (SELECT "t12"."cs_quantity", "t12"."cs_wholesale_cost", "t12"."inv_quantity_on_hand0", "t12"."w_warehouse_name0", "t12"."i_item_desc0", "t12"."i_category0", "t12"."cd_marital_status0", "t12"."cd_dep_count0", "t12"."hd_buy_potential0", "t12"."d_date0", "t12"."d_week_seq0", "t12"."d_year0", "t12"."d_week_seq2", "t12"."d_date4", "promotion"."p_promo_sk"
+        FROM (SELECT *
+                FROM (SELECT *
+                        FROM (SELECT *
+                                FROM (SELECT *
+                                        FROM (SELECT *
+                                                FROM (SELECT *
+                                                        FROM (SELECT *
+                                                                FROM (SELECT *
+                                                                        FROM (SELECT *
+                                                                                FROM (SELECT *
+                                                                                        FROM (SELECT *
+                                                                                                FROM (SELECT *
+                                                                                                        FROM (SELECT *
+                                                                                                                FROM "catalog_sales"
+                                                                                                                WHERE EXISTS (SELECT 1
+                                                                                                                        FROM "inventory"
+                                                                                                                        WHERE "cs_item_sk" = "inventory"."inv_item_sk")) AS "t"
+                                                                                                            CROSS JOIN "inventory" AS "inventory0" ("inv_date_sk0", "inv_item_sk0", "inv_warehouse_sk0", "inv_quantity_on_hand0")
+                                                                                                        WHERE "t"."cs_item_sk" = "inventory0"."inv_item_sk0" AND EXISTS (SELECT 1
+                                                                                                                FROM "warehouse"
+                                                                                                                WHERE "t0"."inv_warehouse_sk0" = "warehouse"."w_warehouse_sk")) AS "t00"
+                                                                                                    CROSS JOIN "warehouse" AS "warehouse0" ("w_warehouse_sk0", "w_warehouse_id0", "w_warehouse_name0", "w_warehouse_sq_ft0", "w_street_number0", "w_street_name0", "w_street_type0", "w_suite_number0", "w_city0", "w_county0", "w_state0", "w_zip0", "w_country0", "w_gmt_offset0")
+                                                                                                WHERE "warehouse0"."w_warehouse_sk0" = "t00"."inv_warehouse_sk0" AND EXISTS (SELECT 1
+                                                                                                        FROM "item"
+                                                                                                        WHERE "t1"."cs_item_sk" = "item"."i_item_sk")) AS "t10"
+                                                                                            CROSS JOIN "item" AS "item0" ("i_item_sk0", "i_item_id0", "i_rec_start_date0", "i_rec_end_date0", "i_item_desc0", "i_current_price0", "i_wholesale_cost0", "i_brand_id0", "i_brand0", "i_class_id0", "i_class0", "i_category_id0", "i_category0", "i_manufact_id0", "i_manufact0", "i_size0", "i_formulation0", "i_color0", "i_units0", "i_container0", "i_manager_id0", "i_product_name0")
+                                                                                        WHERE "item0"."i_item_sk0" = "t10"."cs_item_sk" AND EXISTS (SELECT 1
+                                                                                                FROM "customer_demographics"
+                                                                                                WHERE "t2"."cs_bill_cdemo_sk" = "customer_demographics"."cd_demo_sk")) AS "t2"
+                                                                                WHERE "cs_bill_cdemo_sk" IS NOT NULL) AS "t3",
+                                                                            "customer_demographics" AS "customer_demographics0" ("cd_demo_sk0", "cd_gender0", "cd_marital_status0", "cd_education_status0", "cd_purchase_estimate0", "cd_credit_rating0", "cd_dep_count0", "cd_dep_employed_count0", "cd_dep_college_count0")
+                                                                        WHERE "t3"."cs_bill_cdemo_sk" = "customer_demographics0"."cd_demo_sk0" AND EXISTS (SELECT 1
+                                                                                FROM "household_demographics"
+                                                                                WHERE "t4"."cs_bill_hdemo_sk" = "household_demographics"."hd_demo_sk")) AS "t4"
+                                                                WHERE "cs_bill_hdemo_sk" IS NOT NULL) AS "t5",
+                                                            "household_demographics" AS "household_demographics0" ("hd_demo_sk0", "hd_income_band_sk0", "hd_buy_potential0", "hd_dep_count0", "hd_vehicle_count0")
+                                                        WHERE "t5"."cs_bill_hdemo_sk" = "household_demographics0"."hd_demo_sk0" AND EXISTS (SELECT 1
+                                                                FROM "date_dim"
+                                                                WHERE "t6"."cs_sold_date_sk" = "date_dim"."d_date_sk")) AS "t6"
+                                                WHERE "cs_sold_date_sk" IS NOT NULL) AS "t7",
+                                            "date_dim" AS "date_dim0" ("d_date_sk0", "d_date_id0", "d_date0", "d_month_seq0", "d_week_seq0", "d_quarter_seq0", "d_year0", "d_dow0", "d_moy0", "d_dom0", "d_qoy0", "d_fy_year0", "d_fy_quarter_seq0", "d_fy_week_seq0", "d_day_name0", "d_quarter_name0", "d_holiday0", "d_weekend0", "d_following_holiday0", "d_first_dom0", "d_last_dom0", "d_same_day_ly0", "d_same_day_lq0", "d_current_day0", "d_current_week0", "d_current_month0", "d_current_quarter0", "d_current_year0")
+                                        WHERE "t7"."cs_sold_date_sk" = "date_dim0"."d_date_sk0" AND EXISTS (SELECT 1
+                                                FROM "date_dim" AS "date_dim1" ("d_date_sk1", "d_date_id1", "d_date1", "d_month_seq1", "d_week_seq1", "d_quarter_seq1", "d_year1", "d_dow1", "d_moy1", "d_dom1", "d_qoy1", "d_fy_year1", "d_fy_quarter_seq1", "d_fy_week_seq1", "d_day_name1", "d_quarter_name1", "d_holiday1", "d_weekend1", "d_following_holiday1", "d_first_dom1", "d_last_dom1", "d_same_day_ly1", "d_same_day_lq1", "d_current_day1", "d_current_week1", "d_current_month1", "d_current_quarter1", "d_current_year1")
+                                                WHERE "t8"."inv_date_sk0" = "date_dim1"."d_date_sk1")) AS "t80"
+                                    CROSS JOIN "date_dim" AS "date_dim2" ("d_date_sk2", "d_date_id2", "d_date2", "d_month_seq2", "d_week_seq2", "d_quarter_seq2", "d_year2", "d_dow2", "d_moy2", "d_dom2", "d_qoy2", "d_fy_year2", "d_fy_quarter_seq2", "d_fy_week_seq2", "d_day_name2", "d_quarter_name2", "d_holiday2", "d_weekend2", "d_following_holiday2", "d_first_dom2", "d_last_dom2", "d_same_day_ly2", "d_same_day_lq2", "d_current_day2", "d_current_week2", "d_current_month2", "d_current_quarter2", "d_current_year2")
+                                WHERE "t80"."inv_date_sk0" = "date_dim2"."d_date_sk2" AND EXISTS (SELECT 1
+                                        FROM "date_dim" AS "date_dim3" ("d_date_sk3", "d_date_id3", "d_date3", "d_month_seq3", "d_week_seq3", "d_quarter_seq3", "d_year3", "d_dow3", "d_moy3", "d_dom3", "d_qoy3", "d_fy_year3", "d_fy_quarter_seq3", "d_fy_week_seq3", "d_day_name3", "d_quarter_name3", "d_holiday3", "d_weekend3", "d_following_holiday3", "d_first_dom3", "d_last_dom3", "d_same_day_ly3", "d_same_day_lq3", "d_current_day3", "d_current_week3", "d_current_month3", "d_current_quarter3", "d_current_year3")
+                                        WHERE "t9"."cs_ship_date_sk" = "date_dim3"."d_date_sk3")) AS "t9"
+                        WHERE "cs_ship_date_sk" IS NOT NULL) AS "t11",
+                    "date_dim" AS "date_dim4" ("d_date_sk4", "d_date_id4", "d_date4", "d_month_seq4", "d_week_seq4", "d_quarter_seq4", "d_year4", "d_dow4", "d_moy4", "d_dom4", "d_qoy4", "d_fy_year4", "d_fy_quarter_seq4", "d_fy_week_seq4", "d_day_name4", "d_quarter_name4", "d_holiday4", "d_weekend4", "d_following_holiday4", "d_first_dom4", "d_last_dom4", "d_same_day_ly4", "d_same_day_lq4", "d_current_day4", "d_current_week4", "d_current_month4", "d_current_quarter4", "d_current_year4")
+                WHERE "t11"."cs_ship_date_sk" = "date_dim4"."d_date_sk4") AS "t12"
+            LEFT JOIN "promotion" ON "t12"."cs_promo_sk" = "promotion"."p_promo_sk"
+            LEFT JOIN "catalog_returns" ON "t12"."cs_item_sk" = "catalog_returns"."cr_item_sk" AND "t12"."cs_order_number" = "catalog_returns"."cr_order_number") AS "t13"
+WHERE "t13"."d_week_seq0" = "t13"."d_week_seq2" AND "t13"."inv_quantity_on_hand0" < "t13"."cs_quantity" AND ("t13"."d_date4" > ("t13"."d_date0" + INTERVAL '3' DAY) AND "t13"."hd_buy_potential0" = '>10000') AND ("t13"."d_year0" = 1998 AND "t13"."cd_marital_status0" = 'D' AND ("t13"."cd_dep_count0" >= 9 AND "t13"."cd_dep_count0" <= 11 AND (("t13"."i_category0" = 'Books' OR "t13"."i_category0" = 'Children' OR "t13"."i_category0" = 'Home') AND ("t13"."cs_wholesale_cost" >= 43 AND "t13"."cs_wholesale_cost" <= 63))))
+GROUP BY "i_item_desc0", "w_warehouse_name0", "d_week_seq0"
+ORDER BY 6 DESC, "i_item_desc0", "w_warehouse_name0", "d_week_seq0"
+FETCH NEXT 100 ROWS ONLY;
+[UndefinedTable('missing FROM-clause entry for table "t0"\nLINE 23: ...                                            WHERE "t0"."inv_...\n                                                              ^\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n'), InFailedSqlTransaction('current transaction is aborted, commands ignored until end of transaction block\n')]
+07:57:40,784 root INFO Improvements:
++------------+--------------------+--------------------+--------------------------------------------------------------+
+|  Template  |       Input        |       Output       |                            Rules                             |
++------------+--------------------+--------------------+--------------------------------------------------------------+
+| query027_0 | 26.729333333333333 | 23.46466666666667  |                              []                              |
+| query032_0 | 257197.22566666664 | 380.58166666666665 |              ['FILTER_SUB_QUERY_TO_CORRELATE']               |
+| query032_1 |      300000.0      | 439.53266666666667 | ['FILTER_SUB_QUERY_TO_CORRELATE', 'AGGREGATE_PROJECT_MERGE'] |
+| query050_1 | 49.98866666666667  |       42.786       |                              []                              |
+| query081_0 | 54349.53766666667  | 155.00199999999998 | ['FILTER_SUB_QUERY_TO_CORRELATE', 'AGGREGATE_PROJECT_MERGE'] |
+| query081_1 | 10367.763666666666 | 94.74733333333332  |              ['FILTER_SUB_QUERY_TO_CORRELATE']               |
+| query092_0 |      5174.95       | 218.84266666666667 | ['FILTER_SUB_QUERY_TO_CORRELATE', 'AGGREGATE_PROJECT_MERGE'] |
+| query092_1 | 18425.989666666665 | 211.5873333333333  |              ['FILTER_SUB_QUERY_TO_CORRELATE']               |
+| query100_1 | 110.43799999999999 | 91.25366666666666  |       ['FILTER_INTO_JOIN', 'AGGREGATE_PROJECT_MERGE']        |
+| query102_0 | 71.92466666666667  | 30.157333333333337 |   ['AGGREGATE_PROJECT_MERGE', 'FILTER_REDUCE_EXPRESSIONS']   |
++------------+--------------------+--------------------+--------------------------------------------------------------+
+07:57:40,786 root INFO Improved 10 out of 76 queries
+07:57:40,786 root INFO Average: 246.65035087719298
+07:57:40,786 root INFO Median: 90.38033333333334
+07:57:40,786 root INFO 90th Percentile: 439.53266666666667
+07:57:40,786 root INFO 95th Percentile: 1459.9913333333334
+07:57:40,786 root INFO Average Input: 8723.15423245614
+07:57:40,786 root INFO Median Input: 100.70166666666665
+07:57:40,786 root INFO 90th Percentile Input: 2097.9756666666667
+07:57:40,786 root INFO 95th Percentile Input: 18425.989666666665
+07:57:40,786 root INFO Average Retrieval Time: 31486.842105263157
+07:57:40,786 root INFO Average Arrange Time: 36105.00794649124
+07:57:40,786 root INFO Average Rewrite Time: 23.144736842105264
+07:57:40,786 root INFO Average Total Time: 67614.99478859651
